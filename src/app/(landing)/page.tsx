@@ -32,7 +32,7 @@ export default function Page() {
               </Button>
             ) : (
               <Button LinkComponent={Link} color={"inherit"} href={"/auth"}>
-                Logout
+                Login
               </Button>
             )}
           </Toolbar>
