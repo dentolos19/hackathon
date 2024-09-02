@@ -1,5 +1,6 @@
-import AppContainer from "@/components/app-container";
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import theme from "@/theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -10,13 +11,13 @@ export const metadata: Metadata = {
 export default function Layout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <ColorSchemeScript />
-      </head>
       <body>
-        <MantineProvider defaultColorScheme={"dark"}>
-          <AppContainer>{props.children}</AppContainer>
-        </MantineProvider>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {props.children}
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

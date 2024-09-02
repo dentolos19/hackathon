@@ -1,8 +1,9 @@
 "use client";
 
 import { account } from "@/lib/integrations/appwrite";
-import { Box, Button, Paper, PinInput, Text, TextInput } from "@mantine/core";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { ID } from "appwrite";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Page() {
@@ -40,35 +41,52 @@ export default function Page() {
   }, []);
 
   return (
-    <Box className={"h-full grid place-items-center"}>
-      <Paper className={"mx-auto p-8 w-[300px]"} withBorder>
-        <Box className={"mb-4"}>
-          <Text className={"font-bold text-2xl text-center"}>Login</Text>
-        </Box>
+    <Box component={"main"} className={"h-dvh grid place-items-center"}>
+      <Paper className={"p-8 w-80"} variant={"outlined"}>
         {phase === "login" && (
-          <Box component={"form"} action={handleLogin}>
-            <TextInput type={"email"} name={"email"} placeholder={"Email"} />
-            <Button className={"mt-4 w-full"} type={"submit"}>
+          <Box component={"form"} className={"flex flex-col gap-4"} action={handleLogin}>
+            <Typography className={"text-2xl text-center"}>Hello!</Typography>
+            <TextField
+              variant={"filled"}
+              size={"small"}
+              type={"email"}
+              name={"email"}
+              placeholder={"Email"}
+              hiddenLabel
+            />
+            <Button variant={"contained"} type={"submit"}>
               Login
             </Button>
           </Box>
         )}
         {phase === "otp" && (
-          <Box component={"form"} action={handleOtp}>
-            {/* <Input type={"number"} name={"otp"} placeholder={"OTP"} /> */}
-            <PinInput type={"number"} name={"otp"} length={6} oneTimeCode />
-            <Button className={"mt-4 w-full"} type={"submit"}>
-              Submit
+          <Box component={"form"} className={"flex flex-col gap-4"} action={handleOtp}>
+            <Typography className={"text-2xl text-center"}>Enter OTP</Typography>
+            <TextField
+              variant={"filled"}
+              size={"small"}
+              type={"number"}
+              name={"otp"}
+              placeholder={"One-Time Password"}
+              hiddenLabel
+            />
+            <Button variant={"contained"} type={"submit"}>
+              Continue
             </Button>
           </Box>
         )}
         {phase === "complete" && (
-          <Box>
-            <p>User ID: {userId}</p>
-            <p>Session ID: {sessionId}</p>
-            <Button className={"mt-4 w-full"} onClick={handleLogout}>
-              Logout
-            </Button>
+          <Box className={"flex flex-col gap-4"}>
+            <Typography className={"text-2xl text-center"}>Welcome!</Typography>
+            <Typography className={"text-center"}>Hello, {userId}!</Typography>
+            <Box className={"flex flex-col gap-2"}>
+              <Button LinkComponent={Link} variant={"contained"} color={"info"} href={"/app"}>
+                Continue
+              </Button>
+              <Button variant={"contained"} color={"error"} onClick={handleLogout}>
+                Logout
+              </Button>
+            </Box>
           </Box>
         )}
       </Paper>
