@@ -3,7 +3,10 @@
 import { useAuth } from "@/components/auth-provider";
 import LoadingView from "@/components/views/loading-view";
 import LoginView from "@/components/views/login-view";
-import { AccountCircle, Menu, School, ShoppingCart } from "@mui/icons-material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import MenuIcon from "@mui/icons-material/Menu";
+import SchoolIcon from "@mui/icons-material/School";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   AppBar,
   Box,
@@ -24,12 +27,12 @@ import { useState } from "react";
 const links = [
   {
     label: "Learn",
-    icon: <School />,
+    icon: <SchoolIcon />,
     href: "/app",
   },
   {
     label: "Shop",
-    icon: <ShoppingCart />,
+    icon: <ShoppingCartIcon />,
     href: "/app/shop",
   },
 ];
@@ -51,20 +54,17 @@ export default function AppContainer(props: { children: React.ReactNode }) {
               sx={{
                 display: { xs: "block", sm: "none" },
               }}
-              size={"large"}
-              edge={"start"}
-              color={"inherit"}
               onClick={() => setOpen(true)}
             >
-              <Menu />
+              <MenuIcon />
             </IconButton>
           </Tooltip>
-          <Typography component={"div"} className={"flex-1"} variant={"h6"}>
+          <Typography component={"div"} className={"flex-1 font-bold text-2xl"}>
             Pennywise
           </Typography>
           <Tooltip title={"Profile"} placement={"left"}>
             <IconButton LinkComponent={Link} href={"/app/profile"}>
-              <AccountCircle />
+              <AccountCircleIcon />
             </IconButton>
           </Tooltip>
         </Toolbar>

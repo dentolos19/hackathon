@@ -1,6 +1,10 @@
 import { Account, Client } from "appwrite";
 
-export const appwrite = new Client();
-appwrite.setEndpoint("https://cloud.appwrite.io/v1").setProject("66d2ee3e003d049162cc");
+const client = new Client();
+client.setEndpoint("https://cloud.appwrite.io/v1").setProject("66d2ee3e003d049162cc");
 
-export const account = new Account(appwrite);
+export const account = new Account(client);
+
+export function sendEmailVertification() {
+  return account.createVerification(window.location.origin + "/verify");
+}
