@@ -1,0 +1,24 @@
+# IDE configurations
+.vs/
+.idea/
+
+# Environment files
+node_modules/
+
+# Output files
+build/
+dist/
+out/
+
+# Output files: Next.js
+.vercel/
+.next/
+next-env.d.ts
+
+# User-specific files
+.env*.local
+
+# Miscellaneous files
+.DS_Store
+Desktop.ini
+Thumbs.db
