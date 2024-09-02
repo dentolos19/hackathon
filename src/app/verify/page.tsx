@@ -1,6 +1,6 @@
 "use client";
 
-import { account } from "@/lib/integrations/appwrite";
+import { account } from "@/lib/integrations/appwrite/main";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";

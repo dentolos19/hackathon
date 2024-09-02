@@ -2,7 +2,8 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
-import { account, sendEmailVertification } from "@/lib/integrations/appwrite";
+import { account } from "@/lib/integrations/appwrite/main";
+import { sendEmailVertification } from "@/lib/integrations/appwrite/utils";
 import { Avatar, Box, Button, ButtonGroup, Paper, TextField } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useRouter } from "next/navigation";

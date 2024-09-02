@@ -1,6 +1,7 @@
 "use client";
 
-import { account, UserPrefs } from "@/lib/integrations/appwrite";
+import { account } from "@/lib/integrations/appwrite/main";
+import { UserPrefs } from "@/lib/integrations/appwrite/types";
 import { ID, Models } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
 

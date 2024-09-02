@@ -4,7 +4,7 @@ import { useAuth } from "@/components/providers/auth-provider";
 import LoadingView from "@/components/views/loading-view";
 import LoginView from "@/components/views/login-view";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ForumIcon from '@mui/icons-material/Forum';
+import ForumIcon from "@mui/icons-material/Forum";
 import MenuIcon from "@mui/icons-material/Menu";
 import SchoolIcon from "@mui/icons-material/School";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -76,7 +76,7 @@ export default function AppContainer(props: { children: React.ReactNode }) {
         </Toolbar>
       </AppBar>
       <Drawer
-        className={"z-10 [&>.MuiDrawer-paper]:w-[200px] [&>.MuiDrawer-paper]:static"}
+        className={"z-10 w-[200px] [&>.MuiDrawer-paper]:w-[200px]"}
         sx={{ display: { xs: "none", sm: "block" } }}
         variant={"permanent"}
       >
@@ -95,7 +95,7 @@ export default function AppContainer(props: { children: React.ReactNode }) {
         </Box>
       </Drawer>
       <Drawer
-        className={"[&>.MuiDrawer-paper]:w-[200px]"}
+        className={"w-[200px] [&>.MuiDrawer-paper]:w-[200px]"}
         sx={{ display: { xs: "block", sm: "none" } }}
         variant={"temporary"}
         open={open}
