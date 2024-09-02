@@ -1,7 +1,7 @@
 "use client";
 
 import { account } from "@/lib/integrations/appwrite";
-import { Box, Button, Input, Paper, Text } from "@mantine/core";
+import { Box, Button, Paper, PinInput, Text, TextInput } from "@mantine/core";
 import { ID } from "appwrite";
 import { useEffect, useState } from "react";
 
@@ -47,7 +47,7 @@ export default function Page() {
         </Box>
         {phase === "login" && (
           <Box component={"form"} action={handleLogin}>
-            <Input type={"email"} name={"email"} placeholder={"Email"} />
+            <TextInput type={"email"} name={"email"} placeholder={"Email"} />
             <Button className={"mt-4 w-full"} type={"submit"}>
               Login
             </Button>
@@ -55,7 +55,8 @@ export default function Page() {
         )}
         {phase === "otp" && (
           <Box component={"form"} action={handleOtp}>
-            <Input type={"number"} name={"otp"} placeholder={"OTP"} />
+            {/* <Input type={"number"} name={"otp"} placeholder={"OTP"} /> */}
+            <PinInput type={"number"} name={"otp"} length={6} oneTimeCode />
             <Button className={"mt-4 w-full"} type={"submit"}>
               Submit
             </Button>

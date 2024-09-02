@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Hackathon",
+  title: "Pennywise",
 };
 
 export default function Layout(props: { children: React.ReactNode }) {

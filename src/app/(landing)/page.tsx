@@ -7,6 +7,9 @@ export default function Page() {
       <Button component={Link} href={"/auth"}>
         Login
       </Button>
+      <Button component={Link} href={"/app"}>
+        App
+      </Button>
     </Box>
   );
 }

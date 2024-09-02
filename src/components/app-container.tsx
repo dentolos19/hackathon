@@ -21,7 +21,7 @@ export default function AppContainer(props: { children: React.ReactNode }) {
         <Group h={"100%"} px={"md"}>
           <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom={"sm"} size={"sm"} />
           <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom={"sm"} size={"sm"} />
-          Hackathon
+          Pennywise
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p={"md"}>Navigation Here</AppShell.Navbar>
