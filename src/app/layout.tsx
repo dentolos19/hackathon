@@ -1,3 +1,4 @@
+import AuthProvider from "@/components/auth-provider";
 import theme from "@/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -15,7 +16,7 @@ export default function Layout(props: { children: React.ReactNode }) {
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {props.children}
+            <AuthProvider>{props.children}</AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

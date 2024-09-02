@@ -1,6 +1,9 @@
 "use client";
 
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import { useAuth } from "@/components/auth-provider";
+import LoadingPage from "@/components/loading-page";
+import LoginPage from "@/components/login-page";
+import { AccountCircle, Book, School, ShoppingCart } from "@mui/icons-material";
 import {
   AppBar,
   Box,
@@ -18,29 +21,32 @@ import Link from "next/link";
 const links = [
   {
     label: "Learn",
-    icon: <QuestionMarkIcon />,
+    icon: <School />,
     href: "/app",
   },
   {
     label: "Quests",
-    icon: <QuestionMarkIcon />,
+    icon: <Book />,
     href: "/app/quests",
   },
   {
     label: "Shop",
-    icon: <QuestionMarkIcon />,
+    icon: <ShoppingCart />,
     href: "/app/shop",
   },
   {
     label: "Profile",
-    icon: <QuestionMarkIcon />,
+    icon: <AccountCircle />,
     href: "/app/profile",
   },
 ];
 
 export default function AppContainer(props: { children: React.ReactNode }) {
+  const auth = useAuth();
+  if (auth.loading) return <LoadingPage />;
+  if (!auth.user) return <LoginPage />;
   return (
-    <Box className={"h-dvh grid grid-cols-[200px,1fr]"}>
+    <Box className={"h-full grid grid-cols-[200px,1fr]"}>
       <AppBar className={"fixed z-20"}>
         <Toolbar>
           <Typography component={"div"} className={"flex-1"} variant={"h6"}>

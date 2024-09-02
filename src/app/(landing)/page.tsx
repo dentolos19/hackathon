@@ -1,22 +1,11 @@
 "use client";
 
-import { account } from "@/lib/integrations/appwrite";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function Page() {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    account
-      .get()
-      .then(() => setLoggedIn(true))
-      .catch(() => setLoggedIn(false));
-  }, []);
-
   return (
-    <Box>
+    <Box className={"h-full grid grid-rows-[auto,1fr]"}>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
@@ -26,18 +15,13 @@ export default function Page() {
             <Typography component={"div"} className={"flex-1"} variant={"h6"}>
               Pennywise
             </Typography>
-            {loggedIn ? (
-              <Button LinkComponent={Link} color={"inherit"} href={"/app"}>
-                App
-              </Button>
-            ) : (
-              <Button LinkComponent={Link} color={"inherit"} href={"/auth"}>
-                Login
-              </Button>
-            )}
+            <Button LinkComponent={Link} color={"inherit"} href={"/app"}>
+              Start
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>
+      <Box className={"h-full grid place-items-center"}>Hello, world!</Box>
     </Box>
   );
 }

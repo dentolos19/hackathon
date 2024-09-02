@@ -1,1 +1,0 @@
-export const APPWRITE_KEY = process.env.APPWRITE_KEY as string;

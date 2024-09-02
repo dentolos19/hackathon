@@ -4,3 +4,7 @@
 @layer tailwind {
   @tailwind base;
 }
+
+body {
+  height: 100dvh;
+}
