@@ -13,9 +13,12 @@ export default function LoginView() {
   };
 
   const handleRegister = async (data: FormData) => {
+    const name = data.get("name") as string;
     const email = data.get("email") as string;
     const password = data.get("password") as string;
-    await auth.register(email, password);
+    const confirmPassword = data.get("confirmPassword") as string;
+    if (password !== confirmPassword) return;
+    await auth.register(email, password, name);
   };
 
   return (
@@ -61,6 +64,15 @@ export default function LoginView() {
               <TextField
                 variant={"filled"}
                 size={"small"}
+                type={"text"}
+                name={"name"}
+                placeholder={"Name"}
+                hiddenLabel
+                required
+              />
+              <TextField
+                variant={"filled"}
+                size={"small"}
                 type={"email"}
                 name={"email"}
                 placeholder={"Email"}
@@ -73,6 +85,15 @@ export default function LoginView() {
                 type={"password"}
                 name={"password"}
                 placeholder={"Password"}
+                hiddenLabel
+                required
+              />
+              <TextField
+                variant={"filled"}
+                size={"small"}
+                type={"password"}
+                name={"confirmPassword"}
+                placeholder={"Confirm Password"}
                 hiddenLabel
                 required
               />

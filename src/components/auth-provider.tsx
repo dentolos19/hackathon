@@ -9,7 +9,7 @@ type AuthContextProps = {
   user: Models.User<Models.Preferences> | undefined;
   login: (email: string, password: string) => Promise<Models.Session>;
   logout: () => Promise<void>;
-  register: (email: string, password: string) => Promise<Models.Session>;
+  register: (email: string, password: string, name?: string) => Promise<Models.Session>;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -21,7 +21,7 @@ const AuthContext = createContext<AuthContextProps>({
   logout: function (): Promise<void> {
     throw new Error("Function not implemented.");
   },
-  register: function (email: string, password: string): Promise<Models.Session> {
+  register: function (email: string, password: string, name?: string): Promise<Models.Session> {
     throw new Error("Function not implemented.");
   },
 });
@@ -42,13 +42,11 @@ export default function AuthProvider(props: { children: React.ReactNode }) {
   }
 
   async function logout() {
-    await account.deleteSession("current");
-    setUser(undefined);
+    await account.deleteSession("current").then(() => setUser(undefined));
   }
 
-  async function register(email: string, password: string) {
-    await account.create(ID.unique(), email, password);
-    return login(email, password);
+  async function register(email: string, password: string, name?: string) {
+    return await account.create(ID.unique(), email, password, name).then(() => login(email, password));
   }
 
   async function init() {

@@ -21,12 +21,12 @@ export default function Page() {
 
   return (
     <Box className={"h-full grid place-items-center"}>
-      <Paper className={"p-8"} variant={"elevation"}>
+      <Paper className={"p-8 w-[300px]"} variant={"elevation"}>
         <Box className={"flex flex-col gap-4"}>
           <Avatar className={"mx-auto size-[100px]"}>
             <Person />
           </Avatar>
-          <Typography className={"font-bold text-2xl"}>{auth.user.name || auth.user.email}</Typography>
+          <Typography className={"font-bold text-2xl text-center"}>{auth.user.name || auth.user.email}</Typography>
           <Box className={"flex flex-col gap-2"}>
             <Button variant={"contained"} color={"info"} onClick={handleSettings}>
               Settings
