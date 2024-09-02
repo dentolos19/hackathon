@@ -1,7 +1,8 @@
 "use client";
 
 import { account } from "@/lib/integrations/appwrite";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Page() {
@@ -30,11 +31,33 @@ export default function Page() {
   return (
     <Box className={"h-full grid place-items-center"}>
       <Paper className={"p-8 text-center"} variant={"outlined"}>
-        <Typography className={"mb-2 font-bold text-2xl"}>
-          {verified === undefined && <>Verifying...</>}
-          {verified === true && <>Verified!</>}
-          {verified === false && <>Failed to verify</>}
-        </Typography>
+        {verified === undefined && (
+          <>
+            <Typography className={"font-bold text-2xl"}>Verifying...</Typography>
+          </>
+        )}
+        {verified === true && (
+          <>
+            <Typography className={"mb-2 font-bold text-2xl"}>Verified!</Typography>
+            <Typography className={"mb-2"} color={"textSecondary"}>
+              Congratulations! You are ready to roll!
+            </Typography>
+            <Button LinkComponent={Link} variant={"outlined"} href={"/app"}>
+              Continue
+            </Button>
+          </>
+        )}
+        {verified === false && (
+          <>
+            <Typography className={"mb-2 font-bold text-2xl"}>Failed to verify!</Typography>
+            <Typography className={"mb-2"} color={"textSecondary"}>
+              Sorry about that! Please try again at a later time.
+            </Typography>
+            <Button LinkComponent={Link} variant={"outlined"} href={"/"}>
+              Home
+            </Button>
+          </>
+        )}
       </Paper>
     </Box>
   );

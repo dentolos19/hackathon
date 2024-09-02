@@ -1,5 +1,5 @@
-import { useAuth } from "@/components/auth-provider";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { useAuth } from "@/components/providers/auth-provider";
+import { Box, Button, ButtonGroup, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 export default function LoginView() {
@@ -47,14 +47,14 @@ export default function LoginView() {
                 required
               />
             </Box>
-            <Box className={"flex gap-2 [&>*]:flex-1"}>
-              <Button variant={"contained"} type={"submit"}>
+            <ButtonGroup className={"[&>*]:flex-1"}>
+              <Button variant={"contained"} color={"primary"} type={"submit"}>
                 Login
               </Button>
               <Button variant={"outlined"} color={"secondary"} type={"button"} onClick={() => setPhase("register")}>
                 Register
               </Button>
-            </Box>
+            </ButtonGroup>
           </Box>
         )}
         {phase === "register" && (
@@ -98,14 +98,14 @@ export default function LoginView() {
                 required
               />
             </Box>
-            <Box className={"flex gap-2 [&>*]:flex-1"}>
-              <Button variant={"contained"} type={"submit"}>
+            <ButtonGroup className={"[&>*]:flex-1"}>
+              <Button variant={"contained"} color={"primary"} type={"submit"}>
                 Register
               </Button>
               <Button variant={"outlined"} color={"secondary"} type={"button"} onClick={() => setPhase("login")}>
                 Login
               </Button>
-            </Box>
+            </ButtonGroup>
           </Box>
         )}
       </Paper>

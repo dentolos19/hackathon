@@ -1,9 +1,10 @@
 "use client";
 
-import { useAuth } from "@/components/auth-provider";
+import { useAuth } from "@/components/providers/auth-provider";
 import LoadingView from "@/components/views/loading-view";
 import LoginView from "@/components/views/login-view";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ForumIcon from '@mui/icons-material/Forum';
 import MenuIcon from "@mui/icons-material/Menu";
 import SchoolIcon from "@mui/icons-material/School";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -34,6 +35,11 @@ const links = [
     label: "Shop",
     icon: <ShoppingCartIcon />,
     href: "/app/shop",
+  },
+  {
+    label: "Community",
+    icon: <ForumIcon />,
+    href: "/app/community",
   },
 ];
 
