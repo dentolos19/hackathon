@@ -9,9 +9,6 @@ export default function Page() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            {/* <IconButton className={"mr-2"} size={"large"} edge={"start"} color={"inherit"}>
-              <MenuIcon />
-            </IconButton> */}
             <Typography component={"div"} className={"flex-1"} variant={"h6"}>
               Pennywise
             </Typography>

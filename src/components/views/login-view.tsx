@@ -1,10 +1,8 @@
 import { useAuth } from "@/components/auth-provider";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function LoginPage() {
-  const router = useRouter();
+export default function LoginView() {
   const auth = useAuth();
   const [phase, setPhase] = useState<"login" | "register">("login");
 
