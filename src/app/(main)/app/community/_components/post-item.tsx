@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
+import { deletePost } from "@/lib/integrations/appwrite/posts";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
 import { humanizeDateString } from "@/lib/utils";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -33,21 +34,28 @@ export default function PostItem(props: { className?: string; data: PostDocument
   };
 
   const handleEdit = () => {
-    toast.show({ message: "Function not implemented", severity: "error" });
+    toast.show({ message: "Function not implemented.", severity: "error" });
     setAnchorElement(undefined);
   };
 
-  const handleDelete = () => {
-    toast.show({ message: "Function not implemented", severity: "error" });
+  const handleDelete = async () => {
+    try {
+      await deletePost(props.data.$id);
+      toast.show({ message: "Post deleted!", severity: "success" });
+      window.location.reload(); // TODO: replace with better reloading mechanism
+    } catch (err) {
+      console.log(err);
+      toast.show({ message: "Failed to delete post!", severity: "error" });
+    }
     setAnchorElement(undefined);
   };
 
   const handleFavorite = () => {
-    toast.show({ message: "Function not implemented", severity: "error" });
+    toast.show({ message: "Function not implemented.", severity: "error" });
   };
 
   const handleShare = () => {
-    toast.show({ message: "Function not implemented", severity: "error" });
+    toast.show({ message: "Function not implemented.", severity: "error" });
   };
 
   return (

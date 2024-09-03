@@ -7,6 +7,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ForumIcon from "@mui/icons-material/Forum";
 import MenuIcon from "@mui/icons-material/Menu";
 import MessageIcon from "@mui/icons-material/Message";
+import PaidIcon from "@mui/icons-material/Paid";
 import SchoolIcon from "@mui/icons-material/School";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
@@ -42,6 +43,11 @@ const links = [
     icon: <ForumIcon />,
     href: "/app/community",
   },
+  {
+    label: "Budgeting",
+    icon: <PaidIcon />,
+    href: "/app/tracker",
+  }
 ];
 
 export default function AppContainer(props: { children: React.ReactNode }) {
