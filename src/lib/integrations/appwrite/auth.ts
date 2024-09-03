@@ -22,7 +22,6 @@ export async function getUser() {
     const session = await account.getSession("current");
     const user = (await account.get<UserPrefs>()) as User;
     const userInfo = await getUserInfo(user);
-    console.log(session, user, userInfo);
     return { session, user, userInfo };
   } catch (err) {
     console.error(err);

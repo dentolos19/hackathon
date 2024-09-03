@@ -21,28 +21,26 @@ export default function Page() {
   };
 
   return (
-    <>
-      <Box className={"h-full grid place-items-center"}>
-        <Paper className={"p-8 w-80"} variant={"elevation"}>
-          <Box className={"flex flex-col gap-4"}>
-            <Box className={"flex flex-col gap-2 text-center"}>
-              <Avatar className={"mx-auto size-[80px] text-4xl"} sx={{ backgroundColor: blue[800] }}>
-                {(auth.user.name ? auth.user.name[0] : auth.user.email[0]).toUpperCase()}
-              </Avatar>
-              <Typography className={"font-bold text-2xl"}>{auth.user.name}</Typography>
-              <Typography color={"textSecondary"}>{auth.userInfo?.description}</Typography>
-            </Box>
-            <ButtonGroup className={"[&>*]:flex-1"}>
-              <Button variant={"contained"} color={"info"} onClick={handleSettings}>
-                Settings
-              </Button>
-              <Button variant={"contained"} color={"error"} onClick={handleLogout}>
-                Logout
-              </Button>
-            </ButtonGroup>
+    <Box className={"h-full grid place-items-center"}>
+      <Paper className={"p-8 w-80"} variant={"elevation"}>
+        <Box className={"flex flex-col gap-4"}>
+          <Box className={"flex flex-col gap-2 text-center"}>
+            <Avatar className={"mx-auto size-[80px] text-4xl"} sx={{ backgroundColor: blue[800] }}>
+              {(auth.user.name ? auth.user.name[0] : auth.user.email[0]).toUpperCase()}
+            </Avatar>
+            <Typography className={"font-bold text-2xl"}>{auth.user.name}</Typography>
+            <Typography color={"textSecondary"}>{auth.userInfo?.description}</Typography>
           </Box>
-        </Paper>
-      </Box>
-    </>
+          <ButtonGroup className={"[&>*]:flex-1"}>
+            <Button variant={"contained"} color={"info"} onClick={handleSettings}>
+              Settings
+            </Button>
+            <Button variant={"contained"} color={"error"} onClick={handleLogout}>
+              Logout
+            </Button>
+          </ButtonGroup>
+        </Box>
+      </Paper>
+    </Box>
   );
 }

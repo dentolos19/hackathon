@@ -3,7 +3,7 @@
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import { createPost } from "@/lib/integrations/appwrite/posts";
-import { Box, Button, ButtonGroup, Container, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -24,7 +24,7 @@ export default function Page() {
   };
 
   return (
-    <Container className={"h-full grid place-items-center"}>
+    <Box className={"h-full grid place-items-center"}>
       <Paper className={"p-8 w-96"} variant={"outlined"}>
         <Box component={"form"} className={"flex flex-col gap-4"} action={handlePost}>
           <Typography className={"font-bold text-2xl text-center"}>Create Post</Typography>
@@ -50,6 +50,6 @@ export default function Page() {
           </ButtonGroup>
         </Box>
       </Paper>
-    </Container>
+    </Box>
   );
 }

@@ -2,7 +2,7 @@ import { createGoogleGenerativeAI, GoogleGenerativeAIProvider } from "@ai-sdk/go
 
 export function createProvider(apiKey: string) {
   return createGoogleGenerativeAI({
-    baseURL: "https://generativelanguage.googleapis.com/v1",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta",
     apiKey,
   });
 }

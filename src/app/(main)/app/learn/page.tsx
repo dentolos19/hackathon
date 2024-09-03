@@ -1,6 +1,6 @@
 import CheckIcon from "@mui/icons-material/Check";
 import StarIcon from "@mui/icons-material/Star";
-import { Box, Container, Fab, Link, Stack } from "@mui/material";
+import { Box, Fab, Link, Stack } from "@mui/material";
 
 const quests = [
   {
@@ -22,8 +22,8 @@ const quests = [
 
 export default function Page() {
   return (
-    <Container>
-      <Stack padding={4} spacing={2}>
+    <Box>
+      <Stack className={"py-4"} spacing={2}>
         {quests.map((quest) => (
           <Fab
             LinkComponent={Link}
@@ -39,6 +39,6 @@ export default function Page() {
           </Fab>
         ))}
       </Stack>
-    </Container>
+    </Box>
   );
 }

@@ -4,7 +4,7 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import MessageView from "@/components/views/message-view";
 import { sendEmailVertification, updateUserInfo, updateUserPrefs } from "@/lib/integrations/appwrite/auth";
-import { Box, Button, ButtonGroup, Container, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -52,7 +52,7 @@ export default function Page() {
   };
 
   return (
-    <Container className={"h-full grid place-items-center"}>
+    <Box className={"h-full grid place-items-center"}>
       <Paper className={"p-8 w-96"} variant={"elevation"}>
         <Box component={"form"} className={"flex flex-col gap-4"} action={handleSave}>
           <Typography className={"font-bold text-2xl text-center"}>Settings</Typography>
@@ -114,6 +114,6 @@ export default function Page() {
           </ButtonGroup>
         </Box>
       </Paper>
-    </Container>
+    </Box>
   );
 }

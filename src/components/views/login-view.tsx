@@ -1,5 +1,6 @@
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
+import FormStatus from "@/components/ui/form-button";
 import { Box, Button, Link, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
@@ -26,7 +27,7 @@ export default function LoginView() {
     const confirmPassword = data.get("confirmPassword") as string;
     if (password !== confirmPassword) return;
     try {
-      await auth.register(name, email, password);
+      await auth.register(email, password, name);
     } catch (err) {
       console.error(err);
       toast.show("Unable to register! Please try again later.", "error");
@@ -60,9 +61,18 @@ export default function LoginView() {
               />
             </Box>
             <Box className={"flex flex-col gap-2"}>
-              <Button variant={"contained"} color={"primary"} type={"submit"}>
-                Login
-              </Button>
+              <FormStatus>
+                <FormStatus.Active>
+                  <Button variant={"contained"} color={"primary"} type={"submit"}>
+                    Login
+                  </Button>
+                </FormStatus.Active>
+                <FormStatus.Pending>
+                  <Button variant={"contained"} color={"primary"} disabled>
+                    Logging in...
+                  </Button>
+                </FormStatus.Pending>
+              </FormStatus>
               <Typography className={"text-center"}>
                 {"Don't"} have an account?{" "}
                 <Link component={"button"} onClick={() => setPhase("register")}>
@@ -114,9 +124,18 @@ export default function LoginView() {
               />
             </Box>
             <Box className={"flex flex-col gap-2"}>
-              <Button variant={"contained"} color={"primary"} type={"submit"}>
-                Register
-              </Button>
+              <FormStatus>
+                <FormStatus.Active>
+                  <Button variant={"contained"} color={"primary"} type={"submit"}>
+                    Register
+                  </Button>
+                </FormStatus.Active>
+                <FormStatus.Pending>
+                  <Button variant={"contained"} color={"primary"} disabled>
+                    Registering
+                  </Button>
+                </FormStatus.Pending>
+              </FormStatus>
               <Typography className={"text-center"}>
                 Have an account already?{" "}
                 <Link component={"button"} onClick={() => setPhase("login")}>

@@ -1,7 +1,7 @@
 "use client";
 
 import { account } from "@/lib/integrations/appwrite/main";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Button, Container, Paper, Typography } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -29,7 +29,7 @@ export default function Page() {
   }, []);
 
   return (
-    <Box className={"h-full grid place-items-center"}>
+    <Container className={"h-full grid place-items-center"}>
       <Paper className={"p-8 text-center"} variant={"outlined"}>
         {verified === undefined && (
           <>
@@ -59,6 +59,6 @@ export default function Page() {
           </>
         )}
       </Paper>
-    </Box>
+    </Container>
   );
 }
