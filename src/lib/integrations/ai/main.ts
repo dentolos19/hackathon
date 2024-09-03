@@ -1,12 +1,16 @@
-import { createGoogleGenerativeAI, GoogleGenerativeAIProvider } from "@ai-sdk/google";
+import { useChat } from "ai/react";
 
-export function createProvider(apiKey: string) {
-  return createGoogleGenerativeAI({
-    baseURL: "https://generativelanguage.googleapis.com/v1beta",
-    apiKey,
+export function useChatProxy(apiKey: string) {
+  return useChat({
+    api: "/api/chat",
+    fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
+      return fetch(input, {
+        ...init,
+        headers: {
+          ...init?.headers,
+          "x-api-key": apiKey,
+        },
+      });
+    },
   });
-}
-
-export function createModel(provider: GoogleGenerativeAIProvider) {
-  return provider("gemini-1.5-flash-latest");
 }

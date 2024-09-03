@@ -29,6 +29,10 @@ export async function getUser() {
   }
 }
 
+export async function updateUserPrefs(data: Partial<UserPrefs>) {
+  return account.updatePrefs(data);
+}
+
 export async function getUserInfo(user: User) {
   let userInfo = await databases.getDocument<UserInfoDocument>(databaseIds.main, collectionIds.users, user.$id).catch((err) => {
     console.error(err);
@@ -40,10 +44,6 @@ export async function getUserInfo(user: User) {
     });
   }
   return userInfo;
-}
-
-export async function updateUserPrefs(data: Partial<UserPrefs>) {
-  return account.updatePrefs(data);
 }
 
 export async function updateUserInfo(user: User, data: Partial<UserInfo>) {

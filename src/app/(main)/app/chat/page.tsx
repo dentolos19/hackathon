@@ -2,21 +2,30 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import MessageView from "@/components/views/message-view";
-import { createModel, createProvider } from "@/lib/integrations/ai/main";
+import { useChatProxy } from "@/lib/integrations/ai/main";
 import SendIcon from "@mui/icons-material/Send";
-import { Box, IconButton, Paper, Stack, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
-import { generateText } from "ai";
+import StopIcon from "@mui/icons-material/Stop";
+import { Avatar, Box, IconButton, Paper, Stack, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
 import clsx from "clsx";
-import { useState } from "react";
+import Markdown from "react-markdown";
+
+function humanizeRole(role: string | "system" | "data" | "user" | "assistant") {
+  switch (role) {
+    case "system":
+      return "System";
+    case "data":
+      return "Data";
+    case "user":
+      return "You";
+    case "assistant":
+      return "Pennywise";
+    default:
+      return role;
+  }
+}
 
 export default function Page() {
   const auth = useAuth();
-  const [messages, setMessages] = useState<
-    {
-      actor: "user" | "bot";
-      message: string;
-    }[]
-  >([]);
 
   if (!auth.user || !auth.user.prefs.geminiApiKey)
     return (
@@ -26,47 +35,62 @@ export default function Page() {
       />
     );
 
-  const provider = createProvider(auth.user.prefs.geminiApiKey);
-  const model = createModel(provider);
-
-  const handleSend = (data: FormData) => {
-    const prompt = data.get("message") as string;
-    setMessages((prev) => [...prev, { actor: "user", message: prompt }]);
-    generateText({
-      model,
-      prompt,
-      // TODO: add message memory
-    }).then((res) => {
-      setMessages((prev) => [...prev, { actor: "bot", message: res.text }]);
-    });
-  };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const chat = useChatProxy(auth.user.prefs.geminiApiKey);
 
   return (
     <Box className={"mx-auto w-[90%] md:w-[70%] h-full flex flex-col"}>
       <Stack className={"py-4 flex-1"} spacing={1}>
-        {messages.map((message, index) => (
-          <Paper key={index} className={clsx("p-4 w-fit min-w-32", message.actor === "user" && "self-end text-end")}>
-            <Typography className={"font-bold text-lg"}>{message.actor}</Typography>
-            <Typography>{message.message}</Typography>
+        {chat.messages.map((message, index) => (
+          <Paper
+            key={index}
+            className={clsx("p-4 w-fit flex gap-4", message.role === "user" && "flex-row-reverse self-end text-end")}
+          >
+            <Box>
+              <Avatar className={"size-[35px]"}>X</Avatar>
+            </Box>
+            <Box className={"flex-1"}>
+              <Typography className={"font-bold text-lg"}>{humanizeRole(message.role)}</Typography>
+              <Typography>
+                <Markdown className={"prose prose-invert"}>{message.content}</Markdown>
+              </Typography>
+            </Box>
           </Paper>
         ))}
       </Stack>
-      <Toolbar component={"form"} className={"flex"} action={handleSend}>
-        <TextField
-          className={"flex-1"}
-          variant={"filled"}
-          size={"small"}
-          type={"text"}
-          name={"message"}
-          placeholder={"Message"}
-          hiddenLabel
-        />
-        <Tooltip title={"Send"}>
-          <IconButton className={"ml-2"} type={"submit"}>
-            <SendIcon />
-          </IconButton>
-        </Tooltip>
-      </Toolbar>
+      <Paper component={"form"} action={chat.handleSubmit}>
+        <Toolbar>
+          {chat.isLoading ? (
+            <>
+              <Typography className={"flex-1"}>Generating response...</Typography>
+              <Tooltip title={"Stop"}>
+                <IconButton className={"ml-2"} type={"button"}>
+                  <StopIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          ) : (
+            <>
+              <TextField
+                className={"flex-1"}
+                variant={"filled"}
+                size={"small"}
+                type={"text"}
+                placeholder={"Prompt"}
+                value={chat.input}
+                hiddenLabel
+                disabled={chat.isLoading}
+                onChange={chat.handleInputChange}
+              />
+              <Tooltip title={"Send"}>
+                <IconButton className={"ml-2"} type={"submit"}>
+                  <SendIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+        </Toolbar>
+      </Paper>
     </Box>
   );
 }
