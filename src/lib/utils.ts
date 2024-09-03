@@ -1,3 +1,5 @@
+import { KeyboardEvent } from "react";
+
 export function humanizeDate(date: Date) {
   return humanizeDateString(date.toISOString());
 }
@@ -15,4 +17,10 @@ export function humanizeDateString(date: string) {
     day: "numeric",
     year: "numeric",
   });
+}
+
+export function onKeyCallback(key: string, callback: (event: KeyboardEvent<HTMLElement>) => void) {
+  return (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === key) callback(event);
+  };
 }

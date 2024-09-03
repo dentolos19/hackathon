@@ -3,6 +3,7 @@
 import { useAuth } from "@/components/providers/auth-provider";
 import MessageView from "@/components/views/message-view";
 import { useChatProxy } from "@/lib/integrations/ai/main";
+import { onKeyCallback } from "@/lib/utils";
 import SendIcon from "@mui/icons-material/Send";
 import StopIcon from "@mui/icons-material/Stop";
 import { Avatar, Box, IconButton, Paper, Stack, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
@@ -39,25 +40,30 @@ export default function Page() {
   const chat = useChatProxy(auth.user.prefs.geminiApiKey);
 
   return (
-    <Box className={"mx-auto w-[90%] md:w-[70%] h-full flex flex-col"}>
-      <Stack className={"py-4 flex-1"} spacing={1}>
-        {chat.messages.map((message, index) => (
-          <Paper
-            key={index}
-            className={clsx("p-4 w-fit flex gap-4", message.role === "user" && "flex-row-reverse self-end text-end")}
-          >
-            <Box>
-              <Avatar className={"size-[35px]"}>X</Avatar>
-            </Box>
-            <Box className={"flex-1"}>
-              <Typography className={"font-bold text-lg"}>{humanizeRole(message.role)}</Typography>
-              <Typography>
-                <Markdown className={"prose prose-invert"}>{message.content}</Markdown>
-              </Typography>
-            </Box>
-          </Paper>
-        ))}
-      </Stack>
+    <Box className={"size-full grid grid-rows-[1fr,auto] overflow-hidden"}>
+      <Box className={"overflow-y-auto"}>
+        <Stack className={"mx-auto py-4 w-[90%]"} spacing={1}>
+          {chat.messages.length === 0 && (
+            <Typography className={"mt-16 text-center"}>Get started by sending a prompt!</Typography>
+          )}
+          {chat.messages.map((message, index) => (
+            <Paper
+              key={index}
+              className={clsx("p-4 w-fit flex gap-4", message.role === "user" && "flex-row-reverse self-end text-end")}
+            >
+              <Box>
+                <Avatar className={"size-[35px]"}>X</Avatar>
+              </Box>
+              <Box className={"flex-1"}>
+                <Typography className={"font-bold text-lg"}>{humanizeRole(message.role)}</Typography>
+                <Typography>
+                  <Markdown className={"prose prose-invert"}>{message.content}</Markdown>
+                </Typography>
+              </Box>
+            </Paper>
+          ))}
+        </Stack>
+      </Box>
       <Paper>
         <Toolbar>
           {chat.isLoading ? (
@@ -81,6 +87,7 @@ export default function Page() {
                 hiddenLabel
                 disabled={chat.isLoading}
                 onChange={chat.handleInputChange}
+                onKeyDown={onKeyCallback("Enter", chat.handleSubmit)}
               />
               <Tooltip title={"Send"}>
                 <IconButton className={"ml-2"} onClick={chat.handleSubmit}>

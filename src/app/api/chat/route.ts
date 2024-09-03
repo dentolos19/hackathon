@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
   if (!apiKey) return new Response("Unauthorized", { status: 401 });
 
   const provider = createGoogleGenerativeAI({
-    baseURL: "https://generativelanguage.googleapis.com/v1beta",
     apiKey,
   });
 
