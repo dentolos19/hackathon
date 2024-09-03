@@ -5,7 +5,8 @@ import { ID, Query } from "appwrite";
 export async function loginUser(email: string, password: string) {
   const session = await account.createEmailPasswordSession(email, password);
   const user = (await account.get<UserPrefs>()) as User;
-  return { session, user };
+  const userInfo = await getUserInfo(user);
+  return { session, user, userInfo };
 }
 
 export async function logoutUser() {
@@ -20,7 +21,8 @@ export async function getUser() {
   try {
     const session = await account.getSession("current");
     const user = (await account.get<UserPrefs>()) as User;
-    return { session, user };
+    const userInfo = await getUserInfo(user);
+    return { session, user, userInfo };
   } catch (err) {
     console.error(err);
     return undefined;
@@ -42,10 +44,6 @@ export async function getUserInfo(user: User) {
         })
         .then((res) => {
           return res.document as UserInfo;
-        })
-        .catch((err) => {
-          console.error(err);
-          return undefined;
         });
     });
 }
