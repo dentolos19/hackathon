@@ -13,6 +13,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   AppBar,
   Box,
+  Chip,
   Drawer,
   IconButton,
   List,
@@ -22,7 +23,7 @@ import {
   ListItemText,
   Toolbar,
   Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
@@ -44,10 +45,20 @@ const links = [
     href: "/app/community",
   },
   {
+    label: "Assistance",
+    icon: <MessageIcon />,
+    href: "/app/chat",
+  },
+  {
     label: "Budgeting",
     icon: <PaidIcon />,
     href: "/app/tracker",
-  }
+  },
+  {
+    label: "Profile",
+    icon: <AccountCircleIcon />,
+    href: "/app/profile",
+  },
 ];
 
 export default function AppContainer(props: { children: React.ReactNode }) {
@@ -55,7 +66,7 @@ export default function AppContainer(props: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   if (auth.loading) return <LoadingView />;
-  if (!auth.user) return <LoginView />;
+  if (!auth.user || !auth.userInfo) return <LoginView />;
 
   return (
     <Box className={"h-full flex"}>
@@ -73,16 +84,7 @@ export default function AppContainer(props: { children: React.ReactNode }) {
             </IconButton>
           </Tooltip>
           <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography>
-          <Tooltip title={"Chat"}>
-            <IconButton LinkComponent={Link} size={"large"} href={"/app/chat"}>
-              <MessageIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={"Profile"}>
-            <IconButton LinkComponent={Link} size={"large"} href={"/app/profile"}>
-              <AccountCircleIcon />
-            </IconButton>
-          </Tooltip>
+          <Chip label={`${auth.userInfo.points} Points`} />
         </Toolbar>
       </AppBar>
       <Drawer
