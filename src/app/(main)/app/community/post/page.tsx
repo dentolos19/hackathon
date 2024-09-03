@@ -15,7 +15,7 @@ export default function Page() {
     if (!auth.user) return;
     const content = data.get("content") as string;
     createPost(auth.user, { content });
-    toast.show("Your post has been created!", "success");
+    toast.show({ message: "Your post has been created!", severity: "success" });
     router.push("/app/community");
   };
 

@@ -33,21 +33,21 @@ export default function PostItem(props: { className?: string; data: PostDocument
   };
 
   const handleEdit = () => {
-    toast.show("Function not implemented", "error");
+    toast.show({ message: "Function not implemented", severity: "error" });
     setAnchorElement(undefined);
   };
 
   const handleDelete = () => {
-    toast.show("Function not implemented", "error");
+    toast.show({ message: "Function not implemented", severity: "error" });
     setAnchorElement(undefined);
   };
 
   const handleFavorite = () => {
-    toast.show("Function not implemented", "error");
+    toast.show({ message: "Function not implemented", severity: "error" });
   };
 
   const handleShare = () => {
-    toast.show("Function not implemented", "error");
+    toast.show({ message: "Function not implemented", severity: "error" });
   };
 
   return (

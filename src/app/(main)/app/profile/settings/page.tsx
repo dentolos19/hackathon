@@ -16,7 +16,7 @@ export default function Page() {
 
   const handleVerification = async () => {
     await sendEmailVertification();
-    toast.show("Verification email has been sent!", "success");
+    toast.show({ message: "Verification email has been sent!", severity: "success" });
   };
 
   const handleGemini = async () => {
@@ -39,10 +39,10 @@ export default function Page() {
         geminiApiKey: prefs_geminiApiKey,
       });
     } catch {
-      toast.show("Failed to save profile!", "error");
+      toast.show({ message: "Failed to save settings! Please try again later.", severity: "success" });
     } finally {
       auth.refresh();
-      toast.show("Your profile has been saved!", "success");
+      toast.show({ message: "Your settings has been saved!", severity: "success" });
       router.push("/app/profile");
     }
   };

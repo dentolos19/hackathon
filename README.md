@@ -3,7 +3,7 @@
   <span>Pennywise</span>
 </h1>
 
-A hackathon project.
+Connecting you with the resources and community you need to succeed financially!
 
 ## 🏢 Mission
 
@@ -11,7 +11,7 @@ A hackathon project.
 
 ### Team Members
 
-- Dennise (Leader)
+- Dennise (Leader/Main Programmer)
 - Jian Wei (Ideation & Wireframing)
 - Brayden (Ideation & Marketing)
 - Nathan (Graphic Designer)

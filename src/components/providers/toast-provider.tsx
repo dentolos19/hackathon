@@ -1,16 +1,19 @@
 "use client";
 
-import { Alert, Snackbar } from "@mui/material";
-import { createContext, useContext, useState } from "react";
+import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
+import React, { createContext, SyntheticEvent, useContext, useEffect, useState } from "react";
 
-type ToastSeverity = "info" | "warning" | "error" | "success";
+type ToastProps = {
+  message: string;
+  severity: "success" | "info" | "warning" | "error";
+};
 
 type ToastContextProps = {
-  show: (message: string, severity: ToastSeverity) => void;
+  show: (props: ToastProps) => void;
 };
 
 const ToastContext = createContext<ToastContextProps>({
-  show: function (message: string, severity: ToastSeverity): void {
+  show: () => {
     throw new Error("Function not implemented.");
   },
 });
@@ -21,21 +24,50 @@ export function useToast() {
 
 export default function ToastProvider(props: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState<string | undefined>(undefined);
-  const [severity, setSeverity] = useState<ToastSeverity>("info");
+  const [toast, setToast] = useState<(ToastProps & { key: number }) | undefined>();
+  const [toastQueue, setToastQueue] = useState<(ToastProps & { key: number })[]>([]);
 
-  function show(message: string, severity: ToastSeverity) {
-    setMessage(message);
-    setSeverity(severity);
-    setOpen(true);
-  }
+  useEffect(() => {
+    if (toastQueue.length && !toast) {
+      setToast({ ...toastQueue[0] });
+      setToastQueue((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (toastQueue.length && toast && open) {
+      setOpen(false);
+    }
+  }, [open, toast, toastQueue]);
+
+  const addToast = (props: ToastProps) => {
+    setToastQueue((prev) => [
+      ...prev,
+      {
+        ...props,
+        key: new Date().getTime(),
+      },
+    ]);
+  };
+
+  const handleClose = (event: Event | SyntheticEvent, reason?: SnackbarCloseReason) => {
+    if (reason === "clickaway") return;
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setToast(undefined);
+  };
 
   return (
-    <ToastContext.Provider value={{ show }}>
+    <ToastContext.Provider value={{ show: addToast }}>
       {props.children}
-      <Snackbar open={open} onClose={() => setOpen(false)} autoHideDuration={5000}>
-        <Alert variant={"filled"} severity={severity} onClose={() => setOpen(false)}>
-          {message}
+      <Snackbar
+        key={toast ? toast.key : undefined}
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        TransitionProps={{ onExited: handleExited }}
+      >
+        <Alert variant={"filled"} severity={toast?.severity} onClose={handleClose}>
+          {toast?.message}
         </Alert>
       </Snackbar>
     </ToastContext.Provider>

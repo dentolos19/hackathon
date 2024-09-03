@@ -16,7 +16,10 @@ export default function LoginView() {
       await auth.login(email, password);
     } catch (err) {
       console.error(err);
-      toast.show("Unable to login! Did you enter the correct credentials?", "error");
+      toast.show({
+        message: "Unable to login! Did you enter the correct credentials?",
+        severity: "error",
+      });
     }
   };
 
@@ -30,7 +33,10 @@ export default function LoginView() {
       await auth.register(email, password, name);
     } catch (err) {
       console.error(err);
-      toast.show("Unable to register! Please try again later.", "error");
+      toast.show({
+        message: "Unable to register! Please try again later.",
+        severity: "error",
+      });
     }
   };
 
