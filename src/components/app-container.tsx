@@ -30,7 +30,7 @@ const links = [
   {
     label: "Learn",
     icon: <SchoolIcon />,
-    href: "/app",
+    href: "/app/learn",
   },
   {
     label: "Shop",

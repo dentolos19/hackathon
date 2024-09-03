@@ -1,4 +1,7 @@
-# Pennywise
+<h1>
+  <img src="public/icon.png" alt="Icon" height="30" />
+  <span>Pennywise</span>
+</h1>
 
 A hackathon project.
 
@@ -25,6 +28,10 @@ A hackathon project.
 1. Clone this repository: `git clone https://github.com/dentolos19/pennywise.git`
 2. Install dependencies: `pnpm install`
 3. Run the server: `pnpm dev`
+
+## 💖 Credits
+
+- Icon by (hanggoro)[https://flaticon.com/free-icon/halloween_16213957]
 
 ## 📜 License
 
