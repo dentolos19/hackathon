@@ -53,8 +53,8 @@ export default function Page() {
             <Typography className={"mb-2"} color={"textSecondary"}>
               Sorry about that! Please try again at a later time.
             </Typography>
-            <Button LinkComponent={Link} variant={"outlined"} href={"/"}>
-              Home
+            <Button LinkComponent={Link} variant={"outlined"} href={"/app/profile"}>
+              Profile
             </Button>
           </>
         )}
