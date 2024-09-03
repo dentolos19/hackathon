@@ -3,7 +3,7 @@
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import MessageView from "@/components/views/message-view";
-import { sendEmailVertification, updateUserInfo, updateUserPrefs } from "@/lib/integrations/appwrite/utils";
+import { sendEmailVertification, updateUserInfo, updateUserPrefs } from "@/lib/integrations/appwrite/auth";
 import { Box, Button, ButtonGroup, Container, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 

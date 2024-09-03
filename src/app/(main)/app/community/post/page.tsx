@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
-import { createPost } from "@/lib/integrations/appwrite/utils";
+import { createPost } from "@/lib/integrations/appwrite/posts";
 import { Box, Button, ButtonGroup, Container, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,7 @@ export default function Page() {
   const handlePost = async (data: FormData) => {
     if (!auth.user) return;
     const content = data.get("content") as string;
-    createPost(auth.user, content);
+    createPost(auth.user, { content });
     toast.show("Your post has been created!", "success");
     router.push("/app/community");
   };

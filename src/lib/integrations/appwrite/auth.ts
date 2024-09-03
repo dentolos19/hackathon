@@ -1,6 +1,6 @@
 import { account, collectionIds, databaseIds, databases } from "@/lib/integrations/appwrite/main";
-import { Post, User, UserInfo, UserPrefs } from "@/lib/integrations/appwrite/types";
-import { ID, Query } from "appwrite";
+import { User, UserInfo, UserInfoDocument, UserPrefs } from "@/lib/integrations/appwrite/types";
+import { ID } from "appwrite";
 
 export async function loginUser(email: string, password: string) {
   const session = await account.createEmailPasswordSession(email, password);
@@ -31,12 +31,12 @@ export async function getUser() {
 }
 
 export async function getUserInfo(user: User) {
-  let userInfo = await databases.getDocument<UserInfo>(databaseIds.main, collectionIds.users, user.$id).catch((err) => {
+  let userInfo = await databases.getDocument<UserInfoDocument>(databaseIds.main, collectionIds.users, user.$id).catch((err) => {
     console.error(err);
     return undefined;
   });
   if (!userInfo) {
-    userInfo = await databases.createDocument<UserInfo>(databaseIds.main, collectionIds.users, user.$id, {
+    userInfo = await databases.createDocument<UserInfoDocument>(databaseIds.main, collectionIds.users, user.$id, {
       name: user.name,
     });
   }
@@ -54,18 +54,4 @@ export async function updateUserInfo(user: User, data: Partial<UserInfo>) {
 
 export function sendEmailVertification() {
   return account.createVerification(window.location.origin + "/verify");
-}
-
-export function createPost(user: User, content: string, mediaUrl?: string) {
-  return databases.createDocument(databaseIds.main, collectionIds.posts, ID.unique(), {
-    content,
-    // mediaUrl,
-    user: user.$id,
-  });
-}
-
-export function getPosts() {
-  return databases.listDocuments(databaseIds.main, collectionIds.posts, [Query.orderDesc("$createdAt")]).then((res) => {
-    return res.documents as Post[];
-  });
 }
