@@ -7,9 +7,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type AuthContextProps = {
   loading: boolean;
-  user: User | undefined;
-  userInfo: UserInfo | undefined;
-  session: Models.Session | undefined;
+  session?: Models.Session;
+  user?: User;
+  userInfo?: UserInfo;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (email: string, password: string, name?: string) => Promise<void>;
@@ -18,9 +18,9 @@ type AuthContextProps = {
 
 const AuthContext = createContext<AuthContextProps>({
   loading: true,
+  session: undefined,
   user: undefined,
   userInfo: undefined,
-  session: undefined,
   login: () => {
     throw new Error("Function not implemented.");
   },
@@ -41,38 +41,39 @@ export function useAuth() {
 
 export default function AuthProvider(props: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState<Models.Session>();
   const [user, setUser] = useState<User>();
   const [userInfo, setUserInfo] = useState<UserInfo>();
-  const [session, setSession] = useState<Models.Session>();
 
   const login = async (email: string, password: string) => {
     return await loginUser(email, password).then((data) => {
+      setSession(data.session);
       setUser(data.user);
       setUserInfo(data.userInfo);
-      setSession(data.session);
     });
   };
 
   const logout = async () => {
     await logoutUser().then(() => {
-      setUser(undefined);
       setSession(undefined);
+      setUser(undefined);
+      setUserInfo(undefined);
     });
   };
 
   const register = async (email: string, password: string, name?: string) => {
     return await registerUser(email, password, name).then((data) => {
+      setSession(data.session);
       setUser(data.user);
       setUserInfo(data.userInfo);
-      setSession(data.session);
     });
   };
 
   const refresh = async () => {
     await getUser().then((data) => {
       if (data) {
-        setUser(data.user);
         setSession(data.session);
+        setUser(data.user);
         setUserInfo(data.userInfo);
       } else {
         setUser(undefined);

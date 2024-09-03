@@ -31,7 +31,7 @@ A hackathon project.
 
 ## 💖 Credits
 
-- Icon by (hanggoro)[https://flaticon.com/free-icon/halloween_16213957]
+- Icon by [hanggoro](https://flaticon.com/free-icon/halloween_16213957)
 
 ## 📜 License
 

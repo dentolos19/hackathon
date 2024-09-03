@@ -22,6 +22,7 @@ export async function getUser() {
     const session = await account.getSession("current");
     const user = (await account.get<UserPrefs>()) as User;
     const userInfo = await getUserInfo(user);
+    console.log(session, user, userInfo);
     return { session, user, userInfo };
   } catch (err) {
     console.error(err);
@@ -30,32 +31,29 @@ export async function getUser() {
 }
 
 export async function getUserInfo(user: User) {
-  return await databases
-    .getDocument(databaseIds.main, collectionIds.users, user.$id)
-    .then((res) => {
-      return res.document as UserInfo;
-    })
-    .catch((err) => {
-      console.error(err);
-      return databases
-        .createDocument(databaseIds.main, collectionIds.users, user.$id, {
-          name: user.name,
-          points: 0,
-        })
-        .then((res) => {
-          return res.document as UserInfo;
-        });
+  let userInfo = await databases.getDocument<UserInfo>(databaseIds.main, collectionIds.users, user.$id).catch((err) => {
+    console.error(err);
+    return undefined;
+  });
+  if (!userInfo) {
+    userInfo = await databases.createDocument<UserInfo>(databaseIds.main, collectionIds.users, user.$id, {
+      name: user.name,
     });
+  }
+  return userInfo;
+}
+
+export async function updateUserPrefs(data: Partial<UserPrefs>) {
+  return account.updatePrefs(data);
+}
+
+export async function updateUserInfo(user: User, data: Partial<UserInfo>) {
+  if (data.name) await account.updateName(data.name);
+  return await databases.updateDocument(databaseIds.main, collectionIds.users, user.$id, data);
 }
 
 export function sendEmailVertification() {
   return account.createVerification(window.location.origin + "/verify");
-}
-
-export function getPosts() {
-  return databases.listDocuments(databaseIds.main, collectionIds.posts, [Query.orderDesc("$createdAt")]).then((res) => {
-    return res.documents as Post[];
-  });
 }
 
 export function createPost(user: User, content: string, mediaUrl?: string) {
@@ -63,5 +61,11 @@ export function createPost(user: User, content: string, mediaUrl?: string) {
     content,
     // mediaUrl,
     user: user.$id,
+  });
+}
+
+export function getPosts() {
+  return databases.listDocuments(databaseIds.main, collectionIds.posts, [Query.orderDesc("$createdAt")]).then((res) => {
+    return res.documents as Post[];
   });
 }
