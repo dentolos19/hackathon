@@ -22,7 +22,7 @@ export default function LoginView() {
   };
 
   return (
-    <Box className={"h-full grid place-items-center"}>
+    <Box className={"size-full grid place-items-center"}>
       <Paper className={"p-8 w-80"} variant={"outlined"}>
         {phase === "login" && (
           <Box component={"form"} className={"flex flex-col gap-4"} action={handleLogin}>

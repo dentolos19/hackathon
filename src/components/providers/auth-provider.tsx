@@ -66,7 +66,7 @@ export default function AuthProvider(props: { children: React.ReactNode }) {
   };
 
   const refresh = async () => {
-    getUser().then((data) => {
+    await getUser().then((data) => {
       if (data) {
         setUser(data.user);
         setSession(data.session);

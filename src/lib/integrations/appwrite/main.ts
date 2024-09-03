@@ -14,3 +14,7 @@ export const collectionIds = {
   posts: "66d5bbbb001fc2f3918a",
   users: "66d5bd85001d40306522",
 };
+
+export const bucketId = {
+  media: "66d685070011273f6826",
+};

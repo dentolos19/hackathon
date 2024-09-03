@@ -1,6 +1,6 @@
 import { account, collectionIds, databaseIds, databases } from "@/lib/integrations/appwrite/main";
 import { Post, User, UserInfo, UserPrefs } from "@/lib/integrations/appwrite/types";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 
 export async function loginUser(email: string, password: string) {
   const session = await account.createEmailPasswordSession(email, password);
@@ -55,7 +55,15 @@ export function sendEmailVertification() {
 }
 
 export function getPosts() {
-  return databases.listDocuments(databaseIds.main, collectionIds.posts).then((res) => {
+  return databases.listDocuments(databaseIds.main, collectionIds.posts, [Query.orderDesc("$createdAt")]).then((res) => {
     return res.documents as Post[];
+  });
+}
+
+export function createPost(user: User, content: string, mediaUrl?: string) {
+  return databases.createDocument(databaseIds.main, collectionIds.posts, ID.unique(), {
+    content,
+    // mediaUrl,
+    user: user.$id,
   });
 }

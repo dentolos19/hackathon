@@ -6,7 +6,7 @@ import LoginView from "@/components/views/login-view";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ForumIcon from "@mui/icons-material/Forum";
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import MessageIcon from "@mui/icons-material/Message";
 import SchoolIcon from "@mui/icons-material/School";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
@@ -67,9 +67,9 @@ export default function AppContainer(props: { children: React.ReactNode }) {
             </IconButton>
           </Tooltip>
           <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography>
-          <Tooltip title={"Notifications"}>
-            <IconButton LinkComponent={Link} size={"large"} href={"/app/notifications"}>
-              <NotificationsIcon />
+          <Tooltip title={"Chat"}>
+            <IconButton LinkComponent={Link} size={"large"} href={"/app/chat"}>
+              <MessageIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title={"Profile"}>
