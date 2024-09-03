@@ -58,7 +58,7 @@ export default function Page() {
           </Paper>
         ))}
       </Stack>
-      <Paper component={"form"} action={chat.handleSubmit}>
+      <Paper>
         <Toolbar>
           {chat.isLoading ? (
             <>
@@ -83,7 +83,7 @@ export default function Page() {
                 onChange={chat.handleInputChange}
               />
               <Tooltip title={"Send"}>
-                <IconButton className={"ml-2"} type={"submit"}>
+                <IconButton className={"ml-2"} onClick={chat.handleSubmit}>
                   <SendIcon />
                 </IconButton>
               </Tooltip>
