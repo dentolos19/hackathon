@@ -1,13 +1,13 @@
 "use client";
 
-import { account } from "@/lib/integrations/appwrite/main";
-import { UserPrefs } from "@/lib/integrations/appwrite/types";
-import { ID, Models } from "appwrite";
+import { User } from "@/lib/integrations/appwrite/types";
+import { getUser, loginUser, logoutUser, registerUser } from "@/lib/integrations/appwrite/utils";
+import { Models } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type AuthContextProps = {
   loading: boolean;
-  user: Models.User<UserPrefs> | undefined;
+  user: User | undefined;
   session: Models.Session | undefined;
   login: (email: string, password: string) => Promise<Models.Session>;
   logout: () => Promise<void>;
@@ -19,16 +19,16 @@ const AuthContext = createContext<AuthContextProps>({
   loading: true,
   user: undefined,
   session: undefined,
-  login: function (email: string, password: string): Promise<Models.Session> {
+  login: () => {
     throw new Error("Function not implemented.");
   },
-  logout: function (): Promise<void> {
+  logout: () => {
     throw new Error("Function not implemented.");
   },
-  register: function (email: string, password: string, name?: string): Promise<Models.Session> {
+  register: () => {
     throw new Error("Function not implemented.");
   },
-  refresh: function (): Promise<void> {
+  refresh: () => {
     throw new Error("Function not implemented.");
   },
 });
@@ -39,39 +39,42 @@ export function useAuth() {
 
 export default function AuthProvider(props: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<Models.User<UserPrefs>>();
+  const [user, setUser] = useState<User>();
   const [session, setSession] = useState<Models.Session>();
 
   const login = async (email: string, password: string) => {
-    const session = await account.createEmailPasswordSession(email, password);
-    const user = await account.get();
-    setUser(user);
-    setSession(session);
-    return session;
+    return await loginUser(email, password).then(({ session, user }) => {
+      setUser(user);
+      setSession(session);
+      return session;
+    });
   };
 
   const logout = async () => {
-    await account.deleteSession("current").then(() => {
+    await logoutUser().then(() => {
       setUser(undefined);
       setSession(undefined);
     });
   };
 
   const register = async (email: string, password: string, name?: string) => {
-    return await account.create(ID.unique(), email, password, name).then(() => login(email, password));
+    return await registerUser(email, password, name).then(({ session, user }) => {
+      setUser(user);
+      setSession(session);
+      return session;
+    });
   };
 
   const refresh = async () => {
-    try {
-      const user = await account.get();
-      const session = await account.getSession("current");
-      setUser(user);
-      setSession(session);
-    } catch (err) {
-      console.error(err);
-      setUser(undefined);
-      setSession(undefined);
-    }
+    getUser().then((data) => {
+      if (data) {
+        setUser(data.user);
+        setSession(data.session);
+      } else {
+        setUser(undefined);
+        setSession(undefined);
+      }
+    });
     setLoading(false);
   };
 

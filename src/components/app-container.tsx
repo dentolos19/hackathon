@@ -6,6 +6,7 @@ import LoginView from "@/components/views/login-view";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ForumIcon from "@mui/icons-material/Forum";
 import MenuIcon from "@mui/icons-material/Menu";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import SchoolIcon from "@mui/icons-material/School";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
@@ -52,7 +53,7 @@ export default function AppContainer(props: { children: React.ReactNode }) {
 
   return (
     <Box className={"h-full flex"}>
-      <AppBar className={"fixed z-20"}>
+      <AppBar className={"z-20"}>
         <Toolbar>
           <Tooltip title={"Menu"} placement={"right"}>
             <IconButton
@@ -65,11 +66,14 @@ export default function AppContainer(props: { children: React.ReactNode }) {
               <MenuIcon />
             </IconButton>
           </Tooltip>
-          <Typography component={"div"} className={"flex-1 font-bold text-2xl"}>
-            Pennywise
-          </Typography>
-          <Tooltip title={"Profile"} placement={"left"}>
-            <IconButton LinkComponent={Link} href={"/app/profile"}>
+          <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography>
+          <Tooltip title={"Notifications"}>
+            <IconButton LinkComponent={Link} size={"large"} href={"/app/notifications"}>
+              <NotificationsIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={"Profile"}>
+            <IconButton LinkComponent={Link} size={"large"} href={"/app/profile"}>
               <AccountCircleIcon />
             </IconButton>
           </Tooltip>

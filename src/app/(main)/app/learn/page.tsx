@@ -32,7 +32,7 @@ export default function Page() {
             variant={"extended"}
             size={"large"}
             color={quest.status === "completed" ? "success" : "primary"}
-            href={`/app/quests/${quest.id}`}
+            href={`/app/learn/${quest.id}`}
           >
             {quest.status === "completed" ? <CheckIcon /> : <StarIcon />}
             <Box className={"ml-1"}>{quest.name}</Box>
