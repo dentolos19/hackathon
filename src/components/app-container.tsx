@@ -32,32 +32,32 @@ const links = [
   {
     label: "Learn",
     icon: <SchoolIcon />,
-    href: "/app/learn",
+    href: "/learn",
   },
   {
     label: "Shop",
     icon: <ShoppingCartIcon />,
-    href: "/app/shop",
+    href: "/shop",
   },
   {
     label: "Community",
     icon: <ForumIcon />,
-    href: "/app/community",
+    href: "/community",
   },
   {
     label: "Assistance",
     icon: <MessageIcon />,
-    href: "/app/chat",
+    href: "/chat",
   },
   {
     label: "Budgeting",
     icon: <PaidIcon />,
-    href: "/app/tracker",
+    href: "/tracker",
   },
   {
     label: "Profile",
     icon: <AccountCircleIcon />,
-    href: "/app/profile",
+    href: "/profile",
   },
 ];
 
@@ -83,7 +83,7 @@ export default function AppContainer(props: { children: React.ReactNode }) {
               <MenuIcon />
             </IconButton>
           </Tooltip>
-          <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography>
+          <Typography component={Link} className={"flex-1 font-bold text-2xl"} href={"/"}>Pennywise</Typography>
           <Chip label={`${auth.userInfo.points} Points`} />
         </Toolbar>
       </AppBar>

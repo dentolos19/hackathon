@@ -20,7 +20,7 @@ export default function Page() {
   };
 
   const handleGemini = async () => {
-    router.push("https://aistudio.google.com/app/plan_information");
+    router.push("https://aistudio.google.com/plan_information");
   };
 
   const handleSave = async (data: FormData) => {
@@ -43,12 +43,12 @@ export default function Page() {
     } finally {
       auth.refresh();
       toast.show({ message: "Your settings has been saved!", severity: "success" });
-      router.push("/app/profile");
+      router.push("/profile");
     }
   };
 
   const handleCancel = () => {
-    router.push("/app/profile");
+    router.push("/profile");
   };
 
   return (

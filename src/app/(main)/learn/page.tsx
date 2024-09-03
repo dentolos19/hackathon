@@ -1,6 +1,7 @@
 import CheckIcon from "@mui/icons-material/Check";
 import StarIcon from "@mui/icons-material/Star";
-import { Box, Fab, Link, Stack } from "@mui/material";
+import { Box, Fab, Stack } from "@mui/material";
+import Link from "next/link";
 
 const quests = [
   {
@@ -32,7 +33,7 @@ export default function Page() {
             variant={"extended"}
             size={"large"}
             color={quest.status === "completed" ? "success" : "primary"}
-            href={`/app/learn/${quest.id}`}
+            href={`/learn/${quest.id}`}
           >
             {quest.status === "completed" ? <CheckIcon /> : <StarIcon />}
             <Box className={"ml-1"}>{quest.name}</Box>

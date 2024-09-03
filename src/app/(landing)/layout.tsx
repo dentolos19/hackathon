@@ -8,7 +8,7 @@ export default function Layout(props: LayoutProps) {
         <Toolbar>
           <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography>
           <Button LinkComponent={Link} color={"inherit"} href={"/app"}>
-            Login
+            Start
           </Button>
         </Toolbar>
       </AppBar>

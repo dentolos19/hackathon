@@ -13,7 +13,7 @@ export default function Page() {
   if (auth.loading || !auth.user || !auth.userInfo) return <MessageView title={"Missing Parameters"} />;
 
   const handleSettings = () => {
-    router.push("/app/profile/settings");
+    router.push("/profile/settings");
   };
 
   const handleLogout = async () => {

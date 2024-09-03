@@ -1,4 +1,4 @@
-import PostItem from "@/app/(main)/app/community/_components/post-item";
+import PostItem from "@/app/(main)/community/_components/post-item";
 import { getPosts } from "@/lib/integrations/appwrite/posts";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, Stack } from "@mui/material";
@@ -18,7 +18,7 @@ export default async function Page() {
       <Fab
         LinkComponent={Link}
         className={"fixed right-4 md:right-8 bottom-4 md:bottom-8"}
-        href={"/app/community/post"}
+        href={"/community/post"}
       >
         <AddIcon />
       </Fab>
