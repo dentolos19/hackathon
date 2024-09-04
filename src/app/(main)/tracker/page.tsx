@@ -2,9 +2,9 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import LoadingView from "@/components/views/loading-view";
-import { getExpenses } from "@/lib/budgets";
+import { getExpenses } from "@/lib/expenses";
 import { ExpenseDocument } from "@/lib/integrations/appwrite/types";
-import { humanizeDateString } from "@/lib/utils";
+import { humanizeDate } from "@/lib/utils";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Card, CardActionArea, CardContent, Fab, Stack, Typography } from "@mui/material";
 import Link from "next/link";
@@ -13,12 +13,12 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const auth = useAuth();
   const [loading, setLoading] = useState(true);
-  const [budgets, setBudgets] = useState<ExpenseDocument[]>([]);
+  const [expenses, setExpenses] = useState<ExpenseDocument[]>([]);
 
   useEffect(() => {
     if (!auth.user) return;
     getExpenses(auth.user.$id).then((res) => {
-      setBudgets(res);
+      setExpenses(res);
       setLoading(false);
     });
   }, [auth]);
@@ -28,20 +28,20 @@ export default function Page() {
   return (
     <Box>
       <Stack className={"py-4 mx-auto w-[90%] md:w-[70%] lg:w-[50%]"} spacing={1}>
-        {budgets.map((budget) => (
-          <Card key={budget.$id}>
-            <CardActionArea LinkComponent={Link} href={`/tracker/${budget.$id}`}>
+        {expenses.map((expense) => (
+          <Card key={expense.$id}>
+            <CardActionArea LinkComponent={Link} href={`/tracker/${expense.$id}`}>
               <CardContent className={"flex"}>
                 <Box className={"flex-1"}>
-                  <Typography className={"font-bold text-2xl"}>{budget.name}</Typography>
+                  <Typography className={"font-bold text-2xl"}>{expense.name}</Typography>
                   <Typography className={"text-sm"} color={"textSecondary"}>
-                    {humanizeDateString(budget.date.toString())}
+                    {humanizeDate(expense.date)}
                   </Typography>
                 </Box>
                 <Box className={"flex items-center justify-center gap-1"}>
-                  <Typography className={"font-bold text-2xl"}>${budget.cost.toFixed(2)}</Typography>
+                  <Typography className={"font-bold text-2xl"}>${expense.cost.toFixed(2)}</Typography>
                   <Typography className={"text-sm"} color={"textSecondary"}>
-                    x{budget.quantity}
+                    x{expense.quantity}
                   </Typography>
                 </Box>
               </CardContent>

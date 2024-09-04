@@ -4,7 +4,7 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
 import { deletePost } from "@/lib/posts";
-import { humanizeDateString } from "@/lib/utils";
+import { humanizeDate } from "@/lib/utils";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
@@ -63,7 +63,7 @@ export default function PostItem(props: { className?: string; data: PostDocument
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: red[800] }}>{props.data.user?.name[0].toUpperCase() || "X"}</Avatar>}
         title={props.data.user?.name || "Unknown User"}
-        subheader={humanizeDateString(props.data.$createdAt)}
+        subheader={humanizeDate(props.data.$createdAt)}
         action={
           auth.user?.$id === props.data.user?.$id && (
             <>

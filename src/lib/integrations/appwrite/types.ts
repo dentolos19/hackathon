@@ -7,35 +7,47 @@ export type UserPrefs = Models.Preferences & {
   geminiApiKey?: string;
 };
 
+export const DocumentSchema = z.object({
+  $id: z.string(),
+  $databaseId: z.string(),
+  $collectionId: z.string(),
+  $createdAt: z.coerce.date(),
+  $updatedAt: z.coerce.date(),
+});
+
 // NOTE: when adding new attributes, update "getUserInfo" in "auth.ts"
 export const UserInfoSchema = z.object({
   name: z.string(),
-  description: z.string().optional(),
+  description: z.string().nullish(),
   points: z.number(),
   // posts: z.array(PostSchema).optional(),
-  // budgets: z.array(BudgetSchema).optional(),
+  // expenses: z.array(ExpenseSchema).optional(),
 });
 
+export const UserInfoDocumentSchema = UserInfoSchema.merge(DocumentSchema);
 export type UserInfo = z.infer<typeof UserInfoSchema>;
-export type UserInfoDocument = Models.Document & UserInfo;
+export type UserInfoDocument = z.infer<typeof UserInfoDocumentSchema>;
 
 export const PostSchema = z.object({
   content: z.string(),
-  // mediaUrl: z.string().optional(),
+  mediaUrl: z.string().nullish(),
+  user: UserInfoDocumentSchema.nullish(),
 });
 
+export const PostDocumentSchema = PostSchema.merge(DocumentSchema);
 export type Post = z.infer<typeof PostSchema>;
-export type PostDocument = Models.Document & Post;
+export type PostDocument = z.infer<typeof PostDocumentSchema>;
 
 export const ExpenseSchema = z.object({
   name: z.string(),
-  description: z.string().optional(),
-  date: z.date(),
+  description: z.string().nullish(),
+  date: z.coerce.date(),
   cost: z.number(),
   quantity: z.number(),
-  tags: z.array(z.string()).optional(),
-  user: UserInfoSchema
+  tags: z.array(z.string()).nullish(),
+  user: UserInfoDocumentSchema.nullish(),
 });
 
+export const ExpenseDocumentSchema = ExpenseSchema.merge(DocumentSchema);
 export type Expense = z.infer<typeof ExpenseSchema>;
-export type ExpenseDocument = Models.Document & Expense;
+export type ExpenseDocument = z.infer<typeof ExpenseDocumentSchema>;

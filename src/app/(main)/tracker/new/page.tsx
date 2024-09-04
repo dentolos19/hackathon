@@ -3,7 +3,7 @@
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import FormStatus from "@/components/ui/form-button";
-import { createExpense } from "@/lib/budgets";
+import { createExpense } from "@/lib/expenses";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 

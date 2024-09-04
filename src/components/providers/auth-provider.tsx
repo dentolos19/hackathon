@@ -1,7 +1,7 @@
 "use client";
 
 import { getUser, loginUser, logoutUser, registerUser } from "@/lib/integrations/appwrite/auth";
-import { User, UserInfoDocument } from "@/lib/integrations/appwrite/types";
+import { User, UserInfo, UserInfoDocument } from "@/lib/integrations/appwrite/types";
 import { Models } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ type AuthContextProps = {
   loading: boolean;
   session?: Models.Session;
   user?: User;
-  userInfo?: UserInfoDocument;
+  userInfo?: UserInfo;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (email: string, password: string, name?: string) => Promise<void>;
@@ -43,7 +43,7 @@ export default function AuthProvider(props: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Models.Session>();
   const [user, setUser] = useState<User>();
-  const [userInfo, setUserInfo] = useState<UserInfoDocument>();
+  const [userInfo, setUserInfo] = useState<UserInfo>();
 
   const login = async (email: string, password: string) => {
     return await loginUser(email, password).then((data) => {
@@ -74,7 +74,7 @@ export default function AuthProvider(props: { children: React.ReactNode }) {
       if (data) {
         setSession(data.session);
         setUser(data.user);
-        setUserInfo(data.userInfo);
+        setUserInfo(data.userInfo as UserInfoDocument);
       } else {
         setUser(undefined);
         setSession(undefined);

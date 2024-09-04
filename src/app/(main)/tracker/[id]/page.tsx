@@ -5,8 +5,9 @@ import NotFoundPage from "@/app/not-found";
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import FormStatus from "@/components/ui/form-button";
-import { getExpense, updateExpense } from "@/lib/budgets";
+import { getExpense, updateExpense } from "@/lib/expenses";
 import { ExpenseDocument } from "@/lib/integrations/appwrite/types";
+import { humanizeDate } from "@/lib/utils";
 import { RouteProps } from "@/types";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,7 @@ export default function Page(props: RouteProps) {
   useEffect(() => {
     getExpense(id).then((res) => {
       setExpense(res);
+      console.log(res);
       setLoading(false);
     });
   }, [id]);
@@ -89,7 +91,7 @@ export default function Page(props: RouteProps) {
               type={"date"}
               name={"date"}
               placeholder={"Date"}
-              defaultValue={expense.date.toString()}
+              defaultValue={humanizeDate(expense.date)}
               hiddenLabel
               multiline
               required
