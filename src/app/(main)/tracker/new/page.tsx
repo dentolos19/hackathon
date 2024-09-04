@@ -22,7 +22,7 @@ export default function Page() {
       description: data.get("description"),
       date: data.get("date"),
       cost: Number.parseFloat(data.get("cost") as string),
-      quantity: Number.parseInt(data.get("cost") as string),
+      quantity: Number.parseInt(data.get("quantity") as string),
     });
 
     try {
@@ -66,7 +66,6 @@ export default function Page() {
             <TextField
               type={"number"}
               name={"quantity"}
-              placeholder={"Quantity"}
               defaultValue={1}
               hiddenLabel
               required

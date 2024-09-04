@@ -10,7 +10,7 @@ export default async function Page() {
   const posts = await getPosts();
   return (
     <Box>
-      <Stack className={"py-4 mx-auto w-[90%] md:w-[70%] lg:w-[50%]"} spacing={1}>
+      <Stack className={"py-4 mx-auto w-[90%] md:w-[60%] lg:w-[40%]"} spacing={1}>
         {posts.length === 0 && (
           <Typography className={"mt-16 text-center"}>Get started by creating a new post!</Typography>
         )}

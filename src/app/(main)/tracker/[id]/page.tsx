@@ -42,7 +42,7 @@ export default function Page(props: RouteProps) {
       description: data.get("description"),
       date: data.get("date"),
       cost: Number.parseFloat(data.get("cost") as string),
-      quantity: Number.parseInt(data.get("cost") as string),
+      quantity: Number.parseInt(data.get("quantity") as string),
     });
 
     try {

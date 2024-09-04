@@ -56,11 +56,9 @@ export default function Page(props: RouteProps) {
     <Box className={"h-full grid place-items-center"}>
       <Paper className={"p-8 w-96"} variant={"outlined"}>
         <Box component={"form"} className={"flex flex-col gap-4"} action={handleSave}>
-          <Typography className={"font-bold text-2xl text-center"}>Create Post</Typography>
+          <Typography className={"font-bold text-2xl text-center"}>Edit Post</Typography>
           <Box className={"flex flex-col gap-2"}>
             <TextField
-              variant={"filled"}
-              size={"small"}
               type={"text"}
               name={"content"}
               placeholder={"Content"}
