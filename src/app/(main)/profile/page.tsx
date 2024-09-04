@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/components/providers/auth-provider";
-import MessageView from "@/components/views/message-view";
+import MissingParametersView from "@/components/views/missing-parameters-view";
 import { Avatar, Box, Button, ButtonGroup, Paper, Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,7 @@ export default function Page() {
   const router = useRouter();
   const auth = useAuth();
 
-  if (auth.loading || !auth.user || !auth.userInfo) return <MessageView title={"Missing Parameters"} />;
+  if (!auth.user || !auth.userInfo) return <MissingParametersView />;
 
   const handleSettings = () => {
     router.push("/profile/settings");

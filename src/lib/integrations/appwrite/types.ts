@@ -4,6 +4,7 @@ import { z } from "zod";
 export type User = Models.User<UserPrefs>;
 
 export type UserPrefs = Models.Preferences & {
+  monthlyBudget?: number;
   geminiApiKey?: string;
 };
 

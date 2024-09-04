@@ -29,7 +29,8 @@ export async function getUser() {
   }
 }
 
-export async function updateUserPrefs(data: Partial<UserPrefs>) {
+export async function updateUserPrefs(currentData: UserPrefs, newData: Partial<UserPrefs>) {
+  const data = { ...currentData, ...newData };
   return account.updatePrefs(data);
 }
 

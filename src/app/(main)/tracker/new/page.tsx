@@ -47,7 +47,7 @@ export default function Page() {
           <Typography className={"font-bold text-2xl text-center"}>Add Expense</Typography>
           <Box className={"flex flex-col gap-2"}>
             <TextField type={"text"} name={"name"} placeholder={"Name"} hiddenLabel required />
-            <TextField type={"text"} name={"description"} placeholder={"Description"} hiddenLabel multiline required />
+            <TextField type={"text"} name={"description"} placeholder={"Description"} hiddenLabel multiline />
             <DatePicker name={"date"} />
             <FormControl variant={"outlined"}>
               <OutlinedInput
@@ -63,13 +63,7 @@ export default function Page() {
                 }}
               />
             </FormControl>
-            <TextField
-              type={"number"}
-              name={"quantity"}
-              defaultValue={1}
-              hiddenLabel
-              required
-            />
+            <TextField type={"number"} name={"quantity"} defaultValue={1} hiddenLabel />
           </Box>
           <Box className={"flex flex-col gap-2"}>
             <FormStatus>

@@ -94,7 +94,6 @@ export default function Page(props: RouteProps) {
               defaultValue={expense.description}
               hiddenLabel
               multiline
-              required
             />
             <DatePicker name={"date"} defaultValue={dayjs(expense.date)} />
             <FormControl variant={"outlined"}>

@@ -2,7 +2,8 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
-import MessageView from "@/components/views/message-view";
+import FormStatus from "@/components/ui/form-button";
+import MissingParametersView from "@/components/views/missing-parameters-view";
 import { sendEmailVertification, updateUserInfo, updateUserPrefs } from "@/lib/auth";
 import { Box, Button, ButtonGroup, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -12,7 +13,7 @@ export default function Page() {
   const auth = useAuth();
   const toast = useToast();
 
-  if (auth.loading || !auth.user || !auth.userInfo) return <MessageView title={"Missing Parameters"} />;
+  if (!auth.user || !auth.userInfo) return <MissingParametersView />;
 
   const handleVerification = async () => {
     await sendEmailVertification();
@@ -35,14 +36,14 @@ export default function Page() {
         name: user_name,
         description: user_description,
       });
-      await updateUserPrefs({
+      await updateUserPrefs(auth.user.prefs, {
         geminiApiKey: prefs_geminiApiKey,
       });
+      toast.show({ message: "Your settings has been saved!", severity: "success" });
     } catch {
       toast.show({ message: "Failed to save settings! Please try again later.", severity: "success" });
     } finally {
       auth.refresh();
-      toast.show({ message: "Your settings has been saved!", severity: "success" });
       router.push("/profile");
     }
   };
@@ -105,9 +106,18 @@ export default function Page() {
             )}
           </Box>
           <ButtonGroup className={"[&>*]:flex-1"}>
-            <Button variant={"contained"} color={"info"} type={"submit"}>
-              Save
-            </Button>
+            <FormStatus>
+              <FormStatus.Active>
+                <Button variant={"contained"} color={"info"} type={"submit"}>
+                  Save
+                </Button>
+              </FormStatus.Active>
+              <FormStatus.Pending>
+                <Button variant={"contained"} color={"info"} disabled>
+                  Saving...
+                </Button>
+              </FormStatus.Pending>
+            </FormStatus>
             <Button variant={"contained"} color={"error"} type={"button"} onClick={handleCancel}>
               Cancel
             </Button>
