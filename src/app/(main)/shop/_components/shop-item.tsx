@@ -1,22 +1,18 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
 
-export default function ShopItem() {
+export default function ShopItem(props: { name: string; description?: string; points: number; imageUrl: string }) {
   return (
     <Card className={"h-fit"}>
-      <CardMedia
-        className={"h-[200px]"}
-        image="https://mui.com//static/images/cards/contemplative-reptile.jpg"
-        title="green iguana"
-      />
+      <CardMedia className={"h-[150px]"} image={props.imageUrl} />
       <CardContent>
         <Typography className={"text-2xl"} gutterBottom>
-          Test Item
+          {props.name}
         </Typography>
-        <Typography color={"textSecondary"}>This is just a fake item.</Typography>
+        <Typography color={"textSecondary"}>{props.description}</Typography>
       </CardContent>
       <CardActions>
         <Button>Buy</Button>
-        <Chip label={"1,500 points"} />
+        <Chip label={`${props.points} points`} />
       </CardActions>
     </Card>
   );

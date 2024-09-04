@@ -17,7 +17,7 @@ export default function Page() {
         </Button>
       </Box>
       <Box className={"max-md:h-[40%] flex items-center justify-center"}>
-        <img className={"h-[300px] max-md:h-[150px]"} src={"/assets/money-bag.png"} alt={"Landing"} />
+        <img className={"h-[300px] max-md:h-[150px]"} src={"/assets/money.png"} alt={"Landing"} />
       </Box>
     </Container>
   );
