@@ -2,8 +2,9 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
-import { createPost } from "@/lib/integrations/appwrite/posts";
-import { Box, Button, ButtonGroup, Paper, TextField, Typography } from "@mui/material";
+import FormStatus from "@/components/ui/form-button";
+import { createPost } from "@/lib/posts";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -14,7 +15,7 @@ export default function Page() {
   const handlePost = async (data: FormData) => {
     if (!auth.user) return;
     const content = data.get("content") as string;
-    createPost(auth.user, { content });
+    createPost(auth.user.$id, { content });
     toast.show({ message: "Your post has been created!", severity: "success" });
     router.push("/community");
   };
@@ -40,14 +41,23 @@ export default function Page() {
               required
             />
           </Box>
-          <ButtonGroup className={"[&>*]:flex-1"}>
-            <Button variant={"contained"} color={"primary"} type={"submit"}>
-              Post
-            </Button>
-            <Button variant={"outlined"} color={"secondary"} type={"button"} onClick={handleCancel}>
+          <Box className={"flex flex-col gap-2"}>
+            <FormStatus>
+              <FormStatus.Active>
+                <Button variant={"contained"} color={"primary"} type={"submit"}>
+                  Add
+                </Button>
+              </FormStatus.Active>
+              <FormStatus.Pending>
+                <Button variant={"contained"} color={"primary"} disabled>
+                  Adding...
+                </Button>
+              </FormStatus.Pending>
+            </FormStatus>
+            <Button variant={"outlined"} color={"secondary"} onClick={handleCancel}>
               Cancel
             </Button>
-          </ButtonGroup>
+          </Box>
         </Box>
       </Paper>
     </Box>

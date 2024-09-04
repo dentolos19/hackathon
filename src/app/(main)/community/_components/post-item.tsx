@@ -2,8 +2,8 @@
 
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
-import { deletePost } from "@/lib/integrations/appwrite/posts";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
+import { deletePost } from "@/lib/posts";
 import { humanizeDateString } from "@/lib/utils";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";

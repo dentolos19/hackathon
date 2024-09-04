@@ -13,7 +13,7 @@ export const databaseIds = {
 export const collectionIds = {
   posts: "66d5bbbb001fc2f3918a",
   users: "66d5bd85001d40306522",
-  budgets: "66d71c260023a6441068",
+  expenses: "66d71c260023a6441068",
 };
 
 export const bucketId = {

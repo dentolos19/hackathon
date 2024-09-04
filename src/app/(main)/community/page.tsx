@@ -1,5 +1,5 @@
 import PostItem from "@/app/(main)/community/_components/post-item";
-import { getPosts } from "@/lib/integrations/appwrite/posts";
+import { getPosts } from "@/lib/posts";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, Stack } from "@mui/material";
 import Link from "next/link";
@@ -15,11 +15,7 @@ export default async function Page() {
           <PostItem key={post.$id} data={post} />
         ))}
       </Stack>
-      <Fab
-        LinkComponent={Link}
-        className={"fixed right-4 md:right-8 bottom-4 md:bottom-8"}
-        href={"/community/post"}
-      >
+      <Fab LinkComponent={Link} className={"fixed right-4 md:right-8 bottom-4 md:bottom-8"} href={"/community/post"}>
         <AddIcon />
       </Fab>
     </Box>

@@ -1,4 +1,5 @@
 import { Models } from "appwrite";
+import { z } from "zod";
 
 export type User = Models.User<UserPrefs>;
 
@@ -6,32 +7,35 @@ export type UserPrefs = Models.Preferences & {
   geminiApiKey?: string;
 };
 
-export type UserInfo = {
-  name: string;
-  description?: string;
-  points: number;
-  posts?: Omit<PostDocument, "user">[];
-  budgets?: Omit<Budget, "user">[];
-};
+// NOTE: when adding new attributes, update "getUserInfo" in "auth.ts"
+export const UserInfoSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  points: z.number(),
+  // posts: z.array(PostSchema).optional(),
+  // budgets: z.array(BudgetSchema).optional(),
+});
 
+export type UserInfo = z.infer<typeof UserInfoSchema>;
 export type UserInfoDocument = Models.Document & UserInfo;
 
-export type Post = {
-  content: string;
-  mediaUrl?: string;
-  user?: Omit<UserInfoDocument, "posts" | "budgets">;
-};
+export const PostSchema = z.object({
+  content: z.string(),
+  // mediaUrl: z.string().optional(),
+});
 
+export type Post = z.infer<typeof PostSchema>;
 export type PostDocument = Models.Document & Post;
 
-export type Budget = {
-  name: string;
-  description?: string;
-  date: Date;
-  cost: number;
-  quantity: number;
-  tags?: string[];
-  user?: Omit<UserInfoDocument, "posts" | "budgets">;
-};
+export const ExpenseSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  date: z.date(),
+  cost: z.number(),
+  quantity: z.number(),
+  tags: z.array(z.string()).optional(),
+  user: UserInfoSchema
+});
 
-export type BudgetDocument = Models.Document & Budget;
+export type Expense = z.infer<typeof ExpenseSchema>;
+export type ExpenseDocument = Models.Document & Expense;

@@ -1,6 +1,6 @@
 import { account, collectionIds, databaseIds, databases } from "@/lib/integrations/appwrite/main";
 import { User, UserInfo, UserInfoDocument, UserPrefs } from "@/lib/integrations/appwrite/types";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 
 export async function loginUser(email: string, password: string) {
   const session = await account.createEmailPasswordSession(email, password);
@@ -34,15 +34,21 @@ export async function updateUserPrefs(data: Partial<UserPrefs>) {
 }
 
 export async function getUserInfo(user: User) {
-  let userInfo = await databases.getDocument<UserInfoDocument>(databaseIds.main, collectionIds.users, user.$id).catch((err) => {
-    console.error(err);
-    return undefined;
-  });
+  let userInfo = await databases
+    .getDocument<UserInfoDocument>(databaseIds.main, collectionIds.users, user.$id, [
+      // NOTE: update this when adding new attributes
+      Query.select(["name", "description", "points"]),
+    ])
+    .catch((err) => {
+      console.error(err);
+      return undefined;
+    });
   if (!userInfo) {
     userInfo = await databases.createDocument<UserInfoDocument>(databaseIds.main, collectionIds.users, user.$id, {
       name: user.name,
     });
   }
+  console.log(userInfo);
   return userInfo;
 }
 

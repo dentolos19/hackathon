@@ -3,7 +3,7 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+export default function NotFoundPage() {
   const router = useRouter();
   return (
     <Box className={"h-full grid place-items-center"}>

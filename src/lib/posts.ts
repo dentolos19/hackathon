@@ -1,11 +1,11 @@
 import { collectionIds, databaseIds, databases } from "@/lib/integrations/appwrite/main";
-import { Post, PostDocument, User } from "@/lib/integrations/appwrite/types";
+import { Post, PostDocument } from "@/lib/integrations/appwrite/types";
 import { ID, Query } from "appwrite";
 
-export function createPost(user: User, data: Omit<Post, "user">) {
+export function createPost(userId: string, data: Omit<Post, "user">) {
   return databases.createDocument(databaseIds.main, collectionIds.posts, ID.unique(), {
     ...data,
-    user: user.$id,
+    user: userId,
   });
 }
 
