@@ -5,7 +5,7 @@ import NotFoundPage from "@/app/not-found";
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import FormStatus from "@/components/ui/form-button";
-import { getExpense, updateExpense } from "@/lib/expenses";
+import { deleteExpense, getExpense, updateExpense } from "@/lib/expenses";
 import { ExpenseDocument, ExpenseSchema } from "@/lib/integrations/appwrite/types";
 import { RouteProps } from "@/types";
 import { Box, Button, FormControl, InputAdornment, OutlinedInput, Paper, TextField, Typography } from "@mui/material";
@@ -51,6 +51,19 @@ export default function Page(props: RouteProps) {
     } catch (err) {
       console.error(err);
       toast.show({ message: "Unable to update your expense! Please try again later.", severity: "error" });
+    } finally {
+      router.push("/tracker");
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!auth.user) return;
+    try {
+      await deleteExpense(id);
+      toast.show({ message: "Your expense has been deleted!", severity: "success" });
+    } catch (err) {
+      console.error(err);
+      toast.show({ message: "Unable to delete your expense! Please try again later.", severity: "error" });
     } finally {
       router.push("/tracker");
     }
@@ -120,6 +133,9 @@ export default function Page(props: RouteProps) {
                 </Button>
               </FormStatus.Pending>
             </FormStatus>
+            <Button variant={"contained"} color={"error"} onClick={handleDelete}>
+              Delete
+            </Button>
             <Button variant={"outlined"} color={"secondary"} onClick={handleCancel}>
               Cancel
             </Button>

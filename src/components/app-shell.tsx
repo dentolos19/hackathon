@@ -26,6 +26,7 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const links = [
@@ -62,12 +63,19 @@ const links = [
 ];
 
 export default function AppShell(props: { children: React.ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const auth = useAuth();
 
   const [open, setOpen] = useState(false);
 
   if (auth.loading) return <LoadingView />;
   if (!auth.user || !auth.userInfo) return <LoginView />;
+
+  const handleNavigate = (href: string) => {
+    setOpen(false);
+    router.push(href);
+  };
 
   return (
     <Box className={"h-full flex"}>
@@ -100,7 +108,7 @@ export default function AppShell(props: { children: React.ReactNode }) {
           <List>
             {links.map((link) => (
               <ListItem key={link.label} disablePadding>
-                <ListItemButton LinkComponent={Link} href={link.href}>
+                <ListItemButton LinkComponent={Link} href={link.href} selected={link.href === pathname}>
                   <ListItemIcon>{link.icon}</ListItemIcon>
                   <ListItemText primary={link.label} />
                 </ListItemButton>
@@ -119,7 +127,7 @@ export default function AppShell(props: { children: React.ReactNode }) {
         <List>
           {links.map((link) => (
             <ListItem key={link.label} disablePadding>
-              <ListItemButton LinkComponent={Link} href={link.href}>
+              <ListItemButton onClick={() => handleNavigate(link.href)} selected={link.href === pathname}>
                 <ListItemIcon>{link.icon}</ListItemIcon>
                 <ListItemText primary={link.label} />
               </ListItemButton>

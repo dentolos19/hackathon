@@ -6,7 +6,7 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import FormStatus from "@/components/ui/form-button";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
-import { getPost, updatePost } from "@/lib/posts";
+import { deletePost, getPost, updatePost } from "@/lib/posts";
 import { RouteProps } from "@/types";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -48,6 +48,19 @@ export default function Page(props: RouteProps) {
     }
   };
 
+  const handleDelete = async () => {
+    if (!auth.user) return;
+    try {
+      await deletePost(id);
+      toast.show({ message: "Your post has been deleted!", severity: "success" });
+    } catch (err) {
+      console.error(err);
+      toast.show({ message: "Unable to delete your post! Please try again later.", severity: "error" });
+    } finally {
+      router.push("/community");
+    }
+  };
+
   const handleCancel = () => {
     router.push("/community");
   };
@@ -81,6 +94,9 @@ export default function Page(props: RouteProps) {
                 </Button>
               </FormStatus.Pending>
             </FormStatus>
+            <Button variant={"contained"} color={"error"} onClick={handleDelete}>
+              Delete
+            </Button>
             <Button variant={"outlined"} color={"secondary"} onClick={handleCancel}>
               Cancel
             </Button>

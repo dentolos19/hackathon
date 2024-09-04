@@ -43,11 +43,11 @@ export default function PostItem(props: { className?: string; data: PostDocument
   const handleDelete = async () => {
     try {
       await deletePost(props.data.$id);
-      toast.show({ message: "Post deleted!", severity: "success" });
+      toast.show({ message: "Your post has been deleted!", severity: "success" });
       window.location.reload(); // TODO: replace with better reloading mechanism
     } catch (err) {
       console.log(err);
-      toast.show({ message: "Failed to delete post!", severity: "error" });
+      toast.show({ message: "Unable to delete your post! Please try again later.", severity: "error" });
     }
     setAnchorElement(undefined);
   };
