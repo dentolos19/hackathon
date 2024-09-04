@@ -1,6 +1,6 @@
 "use client";
 
-import { getUser, loginUser, logoutUser, registerUser } from "@/lib/integrations/appwrite/auth";
+import { getUser, loginUser, logoutUser, registerUser } from "@/lib/auth";
 import { User, UserInfo, UserInfoDocument } from "@/lib/integrations/appwrite/types";
 import { Models } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";

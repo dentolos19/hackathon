@@ -1,28 +1,48 @@
 "use client";
 
+import LoadingPage from "@/app/(main)/loading";
+import NotFoundPage from "@/app/not-found";
 import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import FormStatus from "@/components/ui/form-button";
-import { createPost } from "@/lib/posts";
+import { PostDocument } from "@/lib/integrations/appwrite/types";
+import { getPost, updatePost } from "@/lib/posts";
+import { RouteProps } from "@/types";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function Page() {
+export default function Page(props: RouteProps) {
+  const id = props.params.id as string;
+
   const router = useRouter();
   const auth = useAuth();
   const toast = useToast();
 
-  const handlePost = async (data: FormData) => {
+  const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState<PostDocument | undefined>();
+
+  useEffect(() => {
+    getPost(id).then((res) => {
+      setPost(res);
+      setLoading(false);
+    });
+  }, [id]);
+
+  if (loading) return <LoadingPage />;
+  if (!post) return <NotFoundPage />;
+
+  const handleSave = async (data: FormData) => {
     if (!auth.user) return;
 
     const content = data.get("content") as string;
 
     try {
-      await createPost(auth.user.$id, { content });
-      toast.show({ message: "Your post has been created!", severity: "success" });
+      await updatePost(id, { content });
+      toast.show({ message: "Your post has been updated!", severity: "success" });
     } catch (err) {
       console.error(err);
-      toast.show({ message: "Unable to create your post! Please try again later.", severity: "error" });
+      toast.show({ message: "Unable to update your post! Please try again later.", severity: "error" });
     } finally {
       router.push("/community");
     }
@@ -35,7 +55,7 @@ export default function Page() {
   return (
     <Box className={"h-full grid place-items-center"}>
       <Paper className={"p-8 w-96"} variant={"outlined"}>
-        <Box component={"form"} className={"flex flex-col gap-4"} action={handlePost}>
+        <Box component={"form"} className={"flex flex-col gap-4"} action={handleSave}>
           <Typography className={"font-bold text-2xl text-center"}>Create Post</Typography>
           <Box className={"flex flex-col gap-2"}>
             <TextField
@@ -44,6 +64,7 @@ export default function Page() {
               type={"text"}
               name={"content"}
               placeholder={"Content"}
+              defaultValue={post.content}
               hiddenLabel
               multiline
               required
@@ -53,12 +74,12 @@ export default function Page() {
             <FormStatus>
               <FormStatus.Active>
                 <Button variant={"contained"} color={"primary"} type={"submit"}>
-                  Post
+                  Save
                 </Button>
               </FormStatus.Active>
               <FormStatus.Pending>
                 <Button variant={"contained"} color={"primary"} disabled>
-                  Posting...
+                  Saving...
                 </Button>
               </FormStatus.Pending>
             </FormStatus>

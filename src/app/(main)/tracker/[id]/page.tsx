@@ -26,7 +26,6 @@ export default function Page(props: RouteProps) {
   useEffect(() => {
     getExpense(id).then((res) => {
       setExpense(res);
-      console.log(res);
       setLoading(false);
     });
   }, [id]);

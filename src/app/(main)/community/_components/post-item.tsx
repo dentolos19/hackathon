@@ -22,11 +22,14 @@ import {
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
+import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
 
 export default function PostItem(props: { className?: string; data: PostDocument }) {
+  const router = useRouter();
   const auth = useAuth();
   const toast = useToast();
+
   const [anchorElement, setAnchorElement] = useState<HTMLElement>();
 
   const handleMore = (event: MouseEvent<HTMLButtonElement>) => {
@@ -34,8 +37,7 @@ export default function PostItem(props: { className?: string; data: PostDocument
   };
 
   const handleEdit = () => {
-    toast.show({ message: "Function not implemented.", severity: "error" });
-    setAnchorElement(undefined);
+    router.push(`/community/${props.data.$id}`);
   };
 
   const handleDelete = async () => {

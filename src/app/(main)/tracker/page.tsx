@@ -28,6 +28,9 @@ export default function Page() {
   return (
     <Box>
       <Stack className={"py-4 mx-auto w-[90%] md:w-[70%] lg:w-[50%]"} spacing={1}>
+        {expenses.length === 0 && (
+          <Typography className={"mt-16 text-center"}>Get started by creating a new expense!</Typography>
+        )}
         {expenses.map((expense) => (
           <Card key={expense.$id}>
             <CardActionArea LinkComponent={Link} href={`/tracker/${expense.$id}`}>

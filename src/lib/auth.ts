@@ -1,6 +1,6 @@
 import { account, collectionIds, databaseIds, databases } from "@/lib/integrations/appwrite/main";
-import { User, UserInfo, UserInfoSchema, UserPrefs } from "@/lib/integrations/appwrite/types";
-import { ID, Query } from "appwrite";
+import { User, UserInfo, UserInfoDocument, UserInfoSchema, UserPrefs } from "@/lib/integrations/appwrite/types";
+import { ID } from "appwrite";
 
 export async function loginUser(email: string, password: string) {
   const session = await account.createEmailPasswordSession(email, password);
@@ -34,27 +34,22 @@ export async function updateUserPrefs(data: Partial<UserPrefs>) {
 }
 
 export async function getUserInfo(user: User) {
-  let data = await databases
-    .getDocument(databaseIds.main, collectionIds.users, user.$id, [
-      // NOTE: update this when adding new attributes
-      Query.select(["name", "description", "points"]),
-    ])
-    .catch((err) => {
-      console.error(err);
-      return undefined;
-    });
+  let data = await databases.getDocument(databaseIds.main, collectionIds.users, user.$id).catch((err) => {
+    console.error(err);
+    return undefined;
+  });
   if (!data) {
     data = await databases.createDocument(databaseIds.main, collectionIds.users, user.$id, {
       name: user.name,
     });
   }
-  return UserInfoSchema.parse(data) as UserInfo;
+  return UserInfoSchema.parse(data) as UserInfoDocument;
 }
 
 export async function updateUserInfo(user: User, data: Partial<UserInfo>) {
   if (data.name) await account.updateName(data.name);
   const res = await databases.updateDocument(databaseIds.main, collectionIds.users, user.$id, data);
-  return UserInfoSchema.parse(res) as UserInfo;
+  return UserInfoSchema.parse(res) as UserInfoDocument;
 }
 
 export function sendEmailVertification() {
