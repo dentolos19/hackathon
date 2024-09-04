@@ -6,10 +6,11 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import FormStatus from "@/components/ui/form-button";
 import { getExpense, updateExpense } from "@/lib/expenses";
-import { ExpenseDocument } from "@/lib/integrations/appwrite/types";
-import { humanizeDate } from "@/lib/utils";
+import { ExpenseDocument, ExpenseSchema } from "@/lib/integrations/appwrite/types";
 import { RouteProps } from "@/types";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, InputAdornment, OutlinedInput, Paper, TextField, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -36,14 +37,16 @@ export default function Page(props: RouteProps) {
   const handleSave = async (data: FormData) => {
     if (!auth.user) return;
 
-    const name = data.get("name") as string;
-    const description = data.get("description") as string;
-    const date = new Date(data.get("date") as string);
-    const cost = data.get("cost") as unknown as number;
-    const quantity = data.get("quantity") as unknown as number;
+    const expense = ExpenseSchema.parse({
+      name: data.get("name"),
+      description: data.get("description"),
+      date: data.get("date"),
+      cost: Number.parseFloat(data.get("cost") as string),
+      quantity: Number.parseInt(data.get("cost") as string),
+    });
 
     try {
-      updateExpense(id, { name, description, date, cost, quantity });
+      updateExpense(id, expense);
       toast.show({ message: "Your expense has been updated!", severity: "success" });
     } catch (err) {
       console.error(err);
@@ -64,8 +67,6 @@ export default function Page(props: RouteProps) {
           <Typography className={"font-bold text-2xl text-center"}>Edit Expense</Typography>
           <Box className={"flex flex-col gap-2"}>
             <TextField
-              variant={"filled"}
-              size={"small"}
               type={"text"}
               name={"name"}
               placeholder={"Name"}
@@ -74,8 +75,6 @@ export default function Page(props: RouteProps) {
               required
             />
             <TextField
-              variant={"filled"}
-              size={"small"}
               type={"text"}
               name={"description"}
               placeholder={"Description"}
@@ -84,35 +83,22 @@ export default function Page(props: RouteProps) {
               multiline
               required
             />
+            <DatePicker name={"date"} defaultValue={dayjs(expense.date)} />
+            <FormControl variant={"outlined"}>
+              <OutlinedInput
+                type={"number"}
+                name={"cost"}
+                defaultValue={expense.cost}
+                required
+                startAdornment={<InputAdornment position={"start"}>$</InputAdornment>}
+                slotProps={{
+                  input: {
+                    step: 0.01,
+                  },
+                }}
+              />
+            </FormControl>
             <TextField
-              variant={"filled"}
-              size={"small"}
-              type={"date"}
-              name={"date"}
-              placeholder={"Date"}
-              defaultValue={humanizeDate(expense.date)}
-              hiddenLabel
-              multiline
-              required
-            />
-            <TextField
-              variant={"filled"}
-              size={"small"}
-              type={"number"}
-              name={"cost"}
-              placeholder={"Cost"}
-              defaultValue={expense.cost}
-              slotProps={{
-                htmlInput: {
-                  step: 0.01,
-                },
-              }}
-              hiddenLabel
-              required
-            />
-            <TextField
-              variant={"filled"}
-              size={"small"}
               type={"number"}
               name={"quantity"}
               placeholder={"Quantity"}

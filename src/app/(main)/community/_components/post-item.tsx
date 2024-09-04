@@ -4,7 +4,6 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
 import { deletePost } from "@/lib/posts";
-import { humanizeDate } from "@/lib/utils";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
@@ -22,6 +21,7 @@ import {
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
 
@@ -65,7 +65,7 @@ export default function PostItem(props: { className?: string; data: PostDocument
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: red[800] }}>{props.data.user?.name[0].toUpperCase() || "X"}</Avatar>}
         title={props.data.user?.name || "Unknown User"}
-        subheader={humanizeDate(props.data.$createdAt)}
+        subheader={dayjs(props.data.$createdAt).format("MMMM D, YYYY")}
         action={
           auth.user?.$id === props.data.user?.$id && (
             <>

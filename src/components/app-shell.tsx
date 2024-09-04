@@ -23,7 +23,7 @@ import {
   ListItemText,
   Toolbar,
   Tooltip,
-  Typography
+  Typography,
 } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
@@ -61,8 +61,9 @@ const links = [
   },
 ];
 
-export default function AppContainer(props: { children: React.ReactNode }) {
+export default function AppShell(props: { children: React.ReactNode }) {
   const auth = useAuth();
+
   const [open, setOpen] = useState(false);
 
   if (auth.loading) return <LoadingView />;
@@ -83,7 +84,9 @@ export default function AppContainer(props: { children: React.ReactNode }) {
               <MenuIcon />
             </IconButton>
           </Tooltip>
-          <Typography component={Link} className={"flex-1 font-bold text-2xl"} href={"/"}>Pennywise</Typography>
+          <Typography component={Link} className={"flex-1 font-bold text-2xl"} href={"/"}>
+            Pennywise
+          </Typography>
           <Chip label={`${auth.userInfo.points} Points`} />
         </Toolbar>
       </AppBar>

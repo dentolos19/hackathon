@@ -4,7 +4,9 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import FormStatus from "@/components/ui/form-button";
 import { createExpense } from "@/lib/expenses";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { ExpenseSchema } from "@/lib/integrations/appwrite/types";
+import { Box, Button, FormControl, InputAdornment, OutlinedInput, Paper, TextField, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -15,14 +17,16 @@ export default function Page() {
   const handleCreate = async (data: FormData) => {
     if (!auth.user) return;
 
-    const name = data.get("name") as string;
-    const description = data.get("description") as string;
-    const date = new Date(data.get("date") as string);
-    const cost = data.get("cost") as unknown as number;
-    const quantity = data.get("quantity") as unknown as number;
+    const expense = ExpenseSchema.parse({
+      name: data.get("name"),
+      description: data.get("description"),
+      date: data.get("date"),
+      cost: Number.parseFloat(data.get("cost") as string),
+      quantity: Number.parseInt(data.get("cost") as string),
+    });
 
     try {
-      createExpense(auth.user.$id, { name, description, date, cost, quantity });
+      createExpense(auth.user.$id, expense);
       toast.show({ message: "Your expense has been created!", severity: "success" });
     } catch (err) {
       console.error(err);
@@ -42,52 +46,24 @@ export default function Page() {
         <Box component={"form"} className={"flex flex-col gap-4"} action={handleCreate}>
           <Typography className={"font-bold text-2xl text-center"}>Add Expense</Typography>
           <Box className={"flex flex-col gap-2"}>
+            <TextField type={"text"} name={"name"} placeholder={"Name"} hiddenLabel required />
+            <TextField type={"text"} name={"description"} placeholder={"Description"} hiddenLabel multiline required />
+            <DatePicker name={"date"} />
+            <FormControl variant={"outlined"}>
+              <OutlinedInput
+                type={"number"}
+                name={"cost"}
+                defaultValue={"0.00"}
+                required
+                startAdornment={<InputAdornment position={"start"}>$</InputAdornment>}
+                slotProps={{
+                  input: {
+                    step: 0.01,
+                  },
+                }}
+              />
+            </FormControl>
             <TextField
-              variant={"filled"}
-              size={"small"}
-              type={"text"}
-              name={"name"}
-              placeholder={"Name"}
-              hiddenLabel
-              required
-            />
-            <TextField
-              variant={"filled"}
-              size={"small"}
-              type={"text"}
-              name={"description"}
-              placeholder={"Description"}
-              hiddenLabel
-              multiline
-              required
-            />
-            <TextField
-              variant={"filled"}
-              size={"small"}
-              type={"date"}
-              name={"date"}
-              placeholder={"Date"}
-              hiddenLabel
-              multiline
-              required
-            />
-            <TextField
-              variant={"filled"}
-              size={"small"}
-              type={"number"}
-              name={"cost"}
-              placeholder={"Cost"}
-              slotProps={{
-                htmlInput: {
-                  step: 0.01,
-                },
-              }}
-              hiddenLabel
-              required
-            />
-            <TextField
-              variant={"filled"}
-              size={"small"}
               type={"number"}
               name={"quantity"}
               placeholder={"Quantity"}

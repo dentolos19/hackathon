@@ -4,9 +4,9 @@ import { useAuth } from "@/components/providers/auth-provider";
 import LoadingView from "@/components/views/loading-view";
 import { getExpenses } from "@/lib/expenses";
 import { ExpenseDocument } from "@/lib/integrations/appwrite/types";
-import { humanizeDate } from "@/lib/utils";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Card, CardActionArea, CardContent, Fab, Stack, Typography } from "@mui/material";
+import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -38,7 +38,7 @@ export default function Page() {
                 <Box className={"flex-1"}>
                   <Typography className={"font-bold text-2xl"}>{expense.name}</Typography>
                   <Typography className={"text-sm"} color={"textSecondary"}>
-                    {humanizeDate(expense.date)}
+                    {dayjs(expense.date).format("MMMM D, YYYY")}
                   </Typography>
                 </Box>
                 <Box className={"flex items-center justify-center gap-1"}>
