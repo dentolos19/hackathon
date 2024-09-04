@@ -1,45 +1,36 @@
-import CheckIcon from "@mui/icons-material/Check";
-import StarIcon from "@mui/icons-material/Star";
-import { Box, Fab, Stack } from "@mui/material";
-import Link from "next/link";
+"use client";
 
-const quests = [
-  {
-    id: "q1",
-    name: "Quest #1",
-    status: "completed",
-  },
-  {
-    id: "q2",
-    name: "Quest #2",
-    status: "incomplete",
-  },
-  {
-    id: "q3",
-    name: "Quest #3",
-    status: "incomplete",
-  },
-];
+import QuestTab from "@/app/(main)/learn/_components/quest-tab";
+import ResourcesTab from "@/app/(main)/learn/_components/resources-tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { Box, Tab } from "@mui/material";
+import { SyntheticEvent, useState } from "react";
 
 export default function Page() {
+  const [tab, setTab] = useState<string>("quests");
+
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
+    setTab(newValue);
+  };
+
   return (
     <Box>
-      <Stack className={"py-4"} spacing={2}>
-        {quests.map((quest) => (
-          <Fab
-            LinkComponent={Link}
-            key={quest.id}
-            className={"mx-auto w-fit"}
-            variant={"extended"}
-            size={"large"}
-            color={quest.status === "completed" ? "success" : "primary"}
-            href={`/learn/${quest.id}`}
-          >
-            {quest.status === "completed" ? <CheckIcon /> : <StarIcon />}
-            <Box className={"ml-1"}>{quest.name}</Box>
-          </Fab>
-        ))}
-      </Stack>
+      <TabContext value={tab}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <TabList variant={"fullWidth"} onChange={handleChange}>
+            <Tab label={"Quests"} value={"quests"} />
+            <Tab label={"Resources"} value={"resources"} />
+          </TabList>
+        </Box>
+        <TabPanel value={"quests"}>
+          <QuestTab />
+        </TabPanel>
+        <TabPanel value={"resources"}>
+          <ResourcesTab />
+        </TabPanel>
+      </TabContext>
     </Box>
   );
 }
