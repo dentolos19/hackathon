@@ -9,9 +9,9 @@ export default function LessonItem(props: {
   points: number;
 }) {
   return (
-    <Card className={"h-fit"}>
+    <Card className={"flex flex-col"}>
       <CardMedia className={"h-[150px]"} image={props.imageUrl} />
-      <CardContent>
+      <CardContent className={"flex-1"}>
         <Typography className={"text-2xl"} gutterBottom>
           {props.name}
         </Typography>

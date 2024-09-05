@@ -96,14 +96,14 @@ export default function Page() {
       <Stack className={"py-4 mx-auto w-[90%] md:w-[70%] lg:w-[50%]"} spacing={1}>
         <Box className={"flex gap-2"}>
           <Paper className={"p-4 flex-1"}>
-            <Typography className={"font-bold text-2xl"}>${monthlyExpenses}</Typography>
+            <Typography className={"font-bold text-2xl"}>${monthlyExpenses.toFixed(2)}</Typography>
             <Typography className={"text-sm"} color={"textSecondary"}>
               This month's expenses
             </Typography>
           </Paper>
           <Paper className={"p-4 flex-1 flex"}>
             <Box className={"flex-1"}>
-              <Typography className={"font-bold text-2xl"}>${monthlyBudget}</Typography>
+              <Typography className={"font-bold text-2xl"}>${monthlyBudget.toFixed(2)}</Typography>
               <Typography className={"text-sm"} color={"textSecondary"}>
                 This month's budget
               </Typography>

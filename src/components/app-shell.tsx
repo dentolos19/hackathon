@@ -81,21 +81,26 @@ export default function AppShell(props: { children: React.ReactNode }) {
     <Box className={"h-full flex"}>
       <AppBar className={"z-20"}>
         <Toolbar>
-          <Tooltip title={"Menu"} placement={"right"}>
-            <IconButton
-              className={"mr-1"}
-              sx={{
-                display: { xs: "block", sm: "none" },
-              }}
-              onClick={() => setOpen(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Tooltip>
-          <Typography component={Link} className={"flex-1 font-bold text-2xl"} href={"/"}>
-            Pennywise
-          </Typography>
-          <Chip label={`${auth.userInfo.points} Points`} />
+          <Box>
+            <Tooltip title={"Menu"} placement={"right"}>
+              <IconButton
+                className={"mr-1"}
+                sx={{
+                  display: { xs: "block", sm: "none" },
+                }}
+                onClick={() => setOpen(true)}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Tooltip>
+            <Typography component={Link} className={"flex-1 font-bold text-2xl"} href={"/"}>
+              Pennywise
+            </Typography>
+          </Box>
+          <Box className={"flex-1"} />
+          <Box>
+            <Chip label={`${auth.userInfo.points} Points`} />
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer

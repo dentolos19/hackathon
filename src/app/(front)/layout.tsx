@@ -6,10 +6,15 @@ export default function Layout(props: LayoutProps) {
     <Box className={"h-full flex flex-col"}>
       <AppBar>
         <Toolbar>
-          <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography>
-          <Button LinkComponent={Link} color={"inherit"} href={"/app"}>
-            Start
-          </Button>
+          <Box>
+            <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography>
+          </Box>
+          <Box className={"flex-1"} />
+          <Box>
+            <Button LinkComponent={Link} color={"inherit"} href={"/app"}>
+              Start
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
       <Toolbar />

@@ -7,6 +7,7 @@ import { createExpense } from "@/lib/expenses";
 import { ExpenseSchema } from "@/lib/integrations/appwrite/types";
 import { Box, Button, FormControl, InputAdornment, OutlinedInput, Paper, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -48,7 +49,7 @@ export default function Page() {
           <Box className={"flex flex-col gap-2"}>
             <TextField type={"text"} name={"name"} placeholder={"Name"} hiddenLabel required />
             <TextField type={"text"} name={"description"} placeholder={"Description"} hiddenLabel multiline />
-            <DatePicker name={"date"} />
+            <DatePicker name={"date"} defaultValue={dayjs()} />
             <FormControl variant={"outlined"}>
               <OutlinedInput
                 type={"number"}
