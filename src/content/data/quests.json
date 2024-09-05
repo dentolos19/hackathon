@@ -1,0 +1,173 @@
+[
+  {
+    "id": "lv1",
+    "name": "Finance Basics 101",
+    "description": "Master the essentials like credit scores, bank accounts, and simple debt tips.",
+    "questions": [
+      {
+        "statement": "What is the purpose of a credit score?",
+        "choices": [
+          "To determine how much money you have in your bank account",
+          "To track your spending habits",
+          "To assess your creditworthiness for loans and credit cards",
+          "To calculate the interest rate on your savings account"
+        ],
+        "answerIndex": 2
+      },
+      {
+        "statement": "Which of the following is a good strategy for managing credit card debt?",
+        "choices": [
+          "Pay the minimum amount due each month",
+          "Use your credit card to pay off other debts",
+          "Pay off the full balance each month to avoid interest charges",
+          "Apply for more credit cards to increase your available credit"
+        ],
+        "answerIndex": 2
+      },
+      {
+        "statement": "What is the main difference between a savings account and a checking account?",
+        "choices": [
+          "A savings account earns interest, while a checking account is used for daily transactions",
+          "A checking account earns interest, while a savings account is used for daily transactions",
+          "A savings account is only for long-term goals, while a checking account can only be used in emergencies",
+          "A checking account requires a higher minimum balance than a savings account"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "statement": "What is an overdraft in a checking account?",
+        "choices": [
+          "A fee charged for using an ATM",
+          "A feature that allows you to spend more money than you have in your account, typically with a fee",
+          "A penalty for not maintaining a minimum balance",
+          "An automatic transfer from your savings account to cover expenses"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "Which of the following is a benefit of setting financial goals?",
+        "choices": [
+          "It ensures you never have to borrow money",
+          "It helps you prioritize spending and saving, making it easier to manage your finances",
+          "It guarantees a higher income",
+          "It eliminates the need for a budget"
+        ],
+        "answerIndex": 1
+      }
+    ]
+  },
+  {
+    "id": "lv2",
+    "name": "Investor in Training",
+    "description": "Learn the ropes of investing with concepts like diversification and mutual funds.",
+    "questions": [
+      {
+        "statement": "What does the term 'diversification' mean in investing?",
+        "choices": [
+          "Investing all your money in one stock to maximize returns",
+          "Spreading your investments across different asset types to reduce risk",
+          "Only investing in government bonds",
+          "Using your savings to start a business"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "Which of the following best describes a 'mutual fund'?",
+        "choices": [
+          "A type of bank account with a fixed interest rate",
+          "A pooled investment vehicle managed by professionals that invests in a diversified portfolio of assets",
+          "A savings account with high returns",
+          "A loan taken out for purchasing a house"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "What is the 'time value of money'?",
+        "choices": [
+          "The concept that money saved today is worth less in the future due to inflation",
+          "The idea that money available now is worth more than the same amount in the future due to its earning potential",
+          "The amount of time it takes for your money to double in a savings account",
+          "The time it takes to repay a loan"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "What is a 401(k) plan?",
+        "choices": [
+          "A government savings bond",
+          "A type of retirement savings plan offered by employers, where employees can contribute a portion of their salary",
+          "A savings account for medical expenses",
+          "A high-interest checking account"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "Which of the following statements is true about bonds?",
+        "choices": [
+          "Bonds are a form of equity ownership in a company",
+          "Bonds typically offer lower risk but also lower returns compared to stocks",
+          "Bonds guarantee higher returns than any other investment",
+          "Bonds do not have a maturity date"
+        ],
+        "answerIndex": 1
+      }
+    ]
+  },
+  {
+    "id": "lv3",
+    "name": "Financial Pro Moves",
+    "description": "ve deep into advanced topics like compound interest, emergency funds, and portfolio strategy.",
+    "questions": [
+      {
+        "statement": "What is the purpose of an emergency fund?",
+        "choices": [
+          "To cover regular monthly expenses",
+          "To have funds available for unexpected expenses, such as medical emergencies or car repairs",
+          "To save for a vacation",
+          "To invest in the stock market"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "What is 'compound interest'?",
+        "choices": [
+          "Interest earned only on the initial amount of money saved",
+          "Interest calculated on both the initial principal and the accumulated interest from previous periods",
+          "Interest that decreases over time",
+          "Interest that only applies to loans and credit cards"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "How does inflation impact purchasing power?",
+        "choices": [
+          "It increases the value of money over time",
+          "It decreases the value of money, making goods and services more expensive",
+          "It has no impact on purchasing power",
+          "It stabilizes the prices of goods and services"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "What is dollar-cost averaging in investing?",
+        "choices": [
+          "Investing a large sum of money all at once to capitalize on market trends",
+          "Regularly investing a fixed amount of money, regardless of market conditions, to reduce the impact of market volatility",
+          "Only investing when the market is at its lowest point",
+          "Selling all investments when the market declines"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "statement": "What does it mean to 'rebalance' an investment portfolio?",
+        "choices": [
+          "Selling all assets in the portfolio to start over",
+          "Adjusting the asset allocation in your portfolio to maintain your desired level of risk",
+          "Switching all investments to bonds to reduce risk",
+          "Buying more stocks to increase potential returns"
+        ],
+        "answerIndex": 1
+      }
+    ]
+  }
+]

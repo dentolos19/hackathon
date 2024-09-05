@@ -9,24 +9,24 @@ const quests: {
   completed: boolean;
 }[] = [
   {
-    id: "q1",
-    name: "Quest #1",
-    description: "To be added.",
-    points: 100,
+    id: "lv1",
+    name: "Finance Basics 101",
+    description: "Master the essentials like credit scores, bank accounts, and simple debt tips.",
+    points: 1000,
     completed: false,
   },
   {
-    id: "q2",
-    name: "Quest #2",
-    description: "To be added.",
-    points: 100,
+    id: "lv2",
+    name: "Investor in Training",
+    description: "Learn the ropes of investing with concepts like diversification and mutual funds.",
+    points: 2000,
     completed: false,
   },
   {
-    id: "q3",
-    name: "Quest #3",
-    description: "To be added.",
-    points: 100,
+    id: "lv3",
+    name: "Financial Pro Moves",
+    description: "Dive deep into advanced topics like compound interest, emergency funds, and portfolio strategy.",
+    points: 3000,
     completed: false,
   },
 ];
@@ -37,6 +37,7 @@ export default function QuestTab() {
       {quests.map((quest) => (
         <QuestItem
           key={quest.id}
+          id={quest.id}
           name={quest.name}
           description={quest.description}
           points={quest.points}

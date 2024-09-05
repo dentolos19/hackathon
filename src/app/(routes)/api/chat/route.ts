@@ -1,6 +1,6 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { convertToCoreMessages, streamText } from "ai";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const maxDuration = 30;
 
@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   const apiKey = req.headers.get("x-api-key");
   const { messages } = await req.json();
 
-  if (!apiKey) return new Response("Unauthorized", { status: 401 });
+  if (!apiKey) return new NextResponse("Unauthorized.", { status: 401 });
 
   const provider = createGoogleGenerativeAI({
     apiKey,

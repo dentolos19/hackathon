@@ -47,9 +47,9 @@ export async function getUserInfo(user: User) {
   return UserInfoSchema.parse(data) as UserInfoDocument;
 }
 
-export async function updateUserInfo(user: User, data: Partial<UserInfo>) {
+export async function updateUserInfo(userId: string, data: Partial<UserInfo>) {
   if (data.name) await account.updateName(data.name);
-  const res = await databases.updateDocument(databaseIds.main, collectionIds.users, user.$id, data);
+  const res = await databases.updateDocument(databaseIds.main, collectionIds.users, userId, data);
   return UserInfoSchema.parse(res) as UserInfoDocument;
 }
 

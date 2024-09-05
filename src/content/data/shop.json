@@ -1,0 +1,50 @@
+[
+  {
+    "name": "$15 Shopping Voucher",
+    "description": "Use this voucher to get $15 off your next purchase at participating stores. Perfect for general shopping or dining.",
+    "points": 9000,
+    "imageUrl": "/assets/voucher.jpg"
+  },
+  {
+    "name": "ActiveSG 1-Day Pass",
+    "description": "Receive a free day pass to any ActiveSG facility for access to gym and sports amenities.",
+    "points": 1500,
+    "imageUrl": "/assets/gym.png"
+  },
+  {
+    "name": "ActiveSG 1-Month Pass",
+    "description": "Get a 1-month membership to ActiveSG facilities, including access to gyms, pools, and sports amenities.",
+    "points": 4000,
+    "imageUrl": "/assets/gym.png"
+  },
+  {
+    "name": "$10 McDonald's Voucher",
+    "description": "Enjoy a $10 discount on your next meal at McDonald's. Redeemable at any participating location.",
+    "points": 6000,
+    "imageUrl": "/assets/mcd.jpg"
+  },
+  {
+    "name": "$10 Grab Voucher",
+    "description": "Use this $10 Grab voucher for your next ride or food delivery, applicable on the Grab app.",
+    "points": 1500,
+    "imageUrl": "/assets/grab.jpg"
+  },
+  {
+    "name": "Wingstop 3-Piece Chicken Tenders",
+    "description": "Enjoy a free 3-piece order of juicy, flavorful chicken tenders in your favorite Wingstop flavor.",
+    "points": 4000,
+    "imageUrl": "/assets/wingstop.jpg"
+  },
+  {
+    "name": "Wingstop 6-Piece Wings",
+    "description": "Redeem a free 6-piece order of classic or boneless wings in your choice of any Wingstop flavor.",
+    "points": 7000,
+    "imageUrl": "/assets/wingstop.jpg"
+  },
+  {
+    "name": "Wingstop Large Fries",
+    "description": "Get a free large order of Wingstop's seasoned fries, crispy on the outside and fluffy inside.",
+    "points": 2000,
+    "imageUrl": "/assets/wingstop.jpg"
+  }
+]

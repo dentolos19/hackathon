@@ -1,6 +1,8 @@
 import { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
+import Link from "next/link";
 
 export default function QuestItem(props: {
+  id: string;
   name: string;
   description: string;
   points: number;
@@ -15,8 +17,8 @@ export default function QuestItem(props: {
         <Typography color={"textSecondary"}>{props.description}</Typography>
       </CardContent>
       <CardActions>
-        <Button>Start</Button>
-        <Chip color={props.completed ? "success" : "error"} label={props.completed ? "Completed" : "Incomplete"} />
+        <Button LinkComponent={Link} href={`/learn/${props.id}`}>Start</Button>
+        {/* <Chip color={props.completed ? "success" : "error"} label={props.completed ? "Completed" : "Incomplete"} /> */}
         <Chip color={"info"} label={`${props.points} points`} />
       </CardActions>
     </Card>
