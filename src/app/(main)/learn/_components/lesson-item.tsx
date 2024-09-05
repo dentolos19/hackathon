@@ -21,7 +21,7 @@ export default function LessonItem(props: {
         <Button LinkComponent={Link} href={`/learn/${props.id}`}>
           Start
         </Button>
-        <Chip color={"info"} label={`${props.points} points`} />
+        <Chip label={`${props.points} points`} />
       </CardActions>
     </Card>
   );

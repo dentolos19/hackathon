@@ -55,7 +55,9 @@ export default function Page() {
         setMonthlyExpenses(res);
         setMonthlyBudget(auth.user?.prefs.monthlyBudget || 0);
       }),
-    ]).then(() => setLoading(false));
+    ]).then(() => {
+      setLoading(false);
+    });
   }, [auth]);
 
   if (loading) return <LoadingView />;

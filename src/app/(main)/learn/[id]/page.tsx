@@ -1,22 +1,30 @@
 "use client";
 
+import { useAuth } from "@/components/providers/auth-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import LoadingView from "@/components/views/loading-view";
 import NotFoundView from "@/components/views/not-found-view";
+import { updateUserInfo } from "@/lib/auth";
 import { RouteProps } from "@/types";
 import { Box, Button, Card, CardActionArea, Chip, Paper, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page(props: RouteProps) {
   const id = props.params.id;
 
+  const router = useRouter();
+  const auth = useAuth();
+  const toast = useToast();
+
   const [loading, setLoading] = useState(true);
   const [phase, setPhase] = useState<"start" | "questions" | "end">("start");
-  const [quest, setQuest] = useState<{
+  const [lesson, setLesson] = useState<{
     id: string;
     name: string;
     description: string;
-    points: string;
+    points: number;
     questions: {
       statement: string;
       choices: string[];
@@ -27,10 +35,10 @@ export default function Page(props: RouteProps) {
   const [correctAnswers, setCorrectAnswers] = useState(0);
 
   useEffect(() => {
-    fetch(`/api/quests?id=${id}`)
+    fetch(`/api/lessons?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setQuest(data);
+        setLesson(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -40,17 +48,29 @@ export default function Page(props: RouteProps) {
   }, [id]);
 
   if (loading) return <LoadingView />;
-  if (!quest) return <NotFoundView />;
+  if (!lesson) return <NotFoundView />;
 
   const createAnswerHandler = (choiceIndex: number) => {
     return () => {
-      if (choiceIndex === quest.questions[questionIndex].answerIndex) setCorrectAnswers((prev) => prev + 1);
-      if (questionIndex === quest.questions.length - 1) {
+      if (choiceIndex === lesson.questions[questionIndex].answerIndex) setCorrectAnswers((prev) => prev + 1);
+      if (questionIndex === lesson.questions.length - 1) {
         setPhase("end");
       } else {
         setQuestionIndex((prev) => prev + 1);
       }
     };
+  };
+
+  const handleComplete = () => {
+    if (!auth.user || !auth.userInfo) return;
+    updateUserInfo(auth.user.$id, { points: auth.userInfo.points + lesson.points }).then(() => {
+      toast.show({
+        message: `You have earned ${lesson.points} points!`,
+        severity: "info",
+      });
+      auth.refresh();
+      router.push("/app");
+    });
   };
 
   const handleReset = () => {
@@ -66,12 +86,12 @@ export default function Page(props: RouteProps) {
           <Box className={"flex flex-col gap-4 text-center"}>
             <Box>
               <Typography className={"font-bold text-4xl"} gutterBottom>
-                {quest.name}
+                {lesson.name}
               </Typography>
               <Typography color={"textSecondary"} gutterBottom>
-                {quest.description}
+                {lesson.description}
               </Typography>
-              <Chip label={`${quest.points} points`} />
+              <Chip label={`${lesson.points} points`} />
             </Box>
             <Button variant={"contained"} color={"primary"} onClick={() => setPhase("questions")}>
               Begin
@@ -81,7 +101,7 @@ export default function Page(props: RouteProps) {
       </Box>
     );
 
-  if (phase === "end" && correctAnswers === quest.questions.length - 1)
+  if (phase === "end" && correctAnswers === lesson.questions.length)
     return (
       <Box className={"h-full grid place-items-center"}>
         <Paper className={"p-8 w-96"} variant={"outlined"}>
@@ -89,15 +109,15 @@ export default function Page(props: RouteProps) {
             <Typography className={"font-bold text-4xl"} gutterBottom>
               You've passed!
             </Typography>
-            <Typography color={"textSecondary"}>Congratulations! You have earned {quest.points} points!</Typography>
-            <Button LinkComponent={Link} variant={"contained"} color={"primary"} href={"/app"}>
+            <Typography color={"textSecondary"}>Congratulations! You have earned {lesson.points} points!</Typography>
+            <Button variant={"contained"} color={"primary"} onClick={handleComplete}>
               Home
             </Button>
           </Box>
         </Paper>
       </Box>
     );
-  else if (phase === "end" && correctAnswers < quest.questions.length - 1)
+  else if (phase === "end" && correctAnswers < lesson.questions.length - 1)
     return (
       <Box className={"h-full grid place-items-center"}>
         <Paper className={"p-8 w-96"} variant={"outlined"}>
@@ -125,10 +145,10 @@ export default function Page(props: RouteProps) {
         <Paper className={"p-8 w-96"} variant={"outlined"}>
           <Box className={"flex flex-col gap-4"}>
             <Typography className={"font-bold text-2xl text-center"}>
-              {quest.questions[questionIndex].statement}
+              {lesson.questions[questionIndex].statement}
             </Typography>
             <Box className={"flex flex-col gap-2"}>
-              {quest.questions[questionIndex].choices.map((choice, index) => (
+              {lesson.questions[questionIndex].choices.map((choice, index) => (
                 <Card key={index}>
                   <CardActionArea className={"p-2"} onClick={createAnswerHandler(index)}>
                     {choice}
