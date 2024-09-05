@@ -32,7 +32,7 @@ export default function Page() {
     const prefs_geminiApiKey = data.get("prefs-geminiApiKey") as string;
 
     try {
-      await updateUserInfo(auth.user, {
+      await updateUserInfo(auth.user.$id, {
         name: user_name,
         description: user_description,
       });
