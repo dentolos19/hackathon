@@ -61,6 +61,7 @@ export default function Page(props: RouteProps) {
         if (questionIndex === lesson.questions.length - 1) {
           setPhase("end");
           if (!auth.user || !auth.userInfo) return;
+          if (correctAnswers !== lesson.questions.length - 1) return;
           updateUserInfo(auth.user.$id, { points: auth.userInfo.points + lesson.points }).then(() => {
             toast.show({
               message: `You have earned ${lesson.points} points!`,
