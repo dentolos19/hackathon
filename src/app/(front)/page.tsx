@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <Container className={"max-md:py-24 h-full flex max-md:flex-col-reverse md:[&>*]:flex-1 md:gap-8"}>
       <Box className={"flex-1 flex flex-col max-md:items-center justify-center"}>
-        <Typography className={"font-bold text-4xl max-md:text-center"}>Pennywise</Typography>
+        <Typography className={"font-bold text-4xl max-md:text-center"}>Welcome to Pennywise</Typography>
         <Typography className={"mt-4 max-md:text-center"}>
           Your all-in-one solution for your financial needs! Join like-minded people to connect with and be more
           finanically capable!

@@ -12,8 +12,8 @@ Connecting you with the resources and community you need to succeed financially!
 ### Team Members
 
 - Dennise (Leader/Main Programmer)
-- Jian Wei (Ideation & Wireframing)
-- Brayden (Ideation & Marketing)
+- Jian Wei (Ideation & Marketing)
+- Brayden (Ideation & Wireframing)
 - Nathan (Graphic Designer)
 
 ## 🧑‍💻 Contributing
