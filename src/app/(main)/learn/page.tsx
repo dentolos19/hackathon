@@ -1,6 +1,6 @@
 "use client";
 
-import QuestsTab from "@/app/(main)/learn/_components/quests-tab";
+import LessonsTab from "@/app/(main)/learn/_components/lessons-tab";
 import ResourcesTab from "@/app/(main)/learn/_components/resources-tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
@@ -9,7 +9,7 @@ import { Box, Tab } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 
 export default function Page() {
-  const [tab, setTab] = useState<string>("quests");
+  const [tab, setTab] = useState<string>("lessons");
 
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setTab(newValue);
@@ -20,12 +20,12 @@ export default function Page() {
       <TabContext value={tab}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList variant={"fullWidth"} onChange={handleChange}>
-            <Tab label={"Quests"} value={"quests"} />
+            <Tab label={"Lessons"} value={"lessons"} />
             <Tab label={"Resources"} value={"resources"} />
           </TabList>
         </Box>
-        <TabPanel value={"quests"}>
-          <QuestsTab />
+        <TabPanel value={"lessons"}>
+          <LessonsTab />
         </TabPanel>
         <TabPanel value={"resources"}>
           <ResourcesTab />

@@ -1,13 +1,27 @@
+"use client";
+
 import PostItem from "@/app/(main)/community/_components/post-item";
+import LoadingView from "@/components/views/loading-view";
+import { PostDocument } from "@/lib/integrations/appwrite/types";
 import { getPosts } from "@/lib/posts";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export const revalidate = 0;
+export default function Page() {
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState<PostDocument[]>([]);
 
-export default async function Page() {
-  const posts = await getPosts();
+  useEffect(() => {
+    getPosts().then((data) => {
+      setPosts(data);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return <LoadingView />;
+
   return (
     <Box>
       <Stack className={"py-4 mx-auto w-[90%] md:w-[60%] lg:w-[40%]"} spacing={1}>

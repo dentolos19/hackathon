@@ -1,9 +1,16 @@
-import { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
 import Link from "next/link";
 
-export default function QuestItem(props: { id: string; name: string; description: string; points: number }) {
+export default function LessonItem(props: {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  points: number;
+}) {
   return (
     <Card className={"h-fit"}>
+      <CardMedia className={"h-[150px]"} image={props.imageUrl} />
       <CardContent>
         <Typography className={"text-2xl"} gutterBottom>
           {props.name}

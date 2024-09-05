@@ -10,18 +10,18 @@ export default function ShopItem(props: { name: string; description?: string; po
   const auth = useAuth();
   const toast = useToast();
 
-  const handleBuy = async () => {
+  const handleRedeem = async () => {
     if (!auth.user || !auth.userInfo) return;
     if (auth.userInfo.points < props.points) {
       toast.show({
-        message: "You don't have enough points to buy this item!",
+        message: "You don't have enough points to redeem this item!",
         severity: "error",
       });
     } else {
       await updateUserInfo(auth.user.$id, { points: auth.userInfo.points - props.points }).then(() => {
         auth.refresh();
         toast.show({
-          message: "Item bought successfully! Please check your email for more details.",
+          message: "Item redeemed successfully! Please check your email for more details.",
           severity: "success",
         });
       });
@@ -29,7 +29,7 @@ export default function ShopItem(props: { name: string; description?: string; po
   };
 
   return (
-    <Card component={"form"} className={"flex flex-col"} action={handleBuy}>
+    <Card component={"form"} className={"flex flex-col"} action={handleRedeem}>
       <CardMedia className={"h-[150px]"} image={props.imageUrl} />
       <CardContent className={"flex-1"}>
         <Typography className={"text-2xl"} gutterBottom>
@@ -40,10 +40,10 @@ export default function ShopItem(props: { name: string; description?: string; po
       <CardActions>
         <FormStatus>
           <FormStatus.Active>
-            <Button type={"submit"}>Buy</Button>
+            <Button type={"submit"}>Redeem</Button>
           </FormStatus.Active>
           <FormStatus.Pending>
-            <Button disabled>Buying...</Button>
+            <Button disabled>Redeeming...</Button>
           </FormStatus.Pending>
         </FormStatus>
         <Chip label={`${props.points} points`} />

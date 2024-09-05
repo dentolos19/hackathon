@@ -7,7 +7,7 @@ Connecting you with the resources and community you need to succeed financially!
 
 ## 🏢 Mission
 
-**Problem Statement**: Create a web-based solution to increase awareness and improve finanical literacy amongst teenagers. (i.e., debt management, loaning, saving, etc.)
+**Problem Statement**: Create a web-based solution to increase awareness and improve financial literacy amongst teenagers. (i.e., debt management, loaning, saving, etc.)
 
 ### Team Members
 

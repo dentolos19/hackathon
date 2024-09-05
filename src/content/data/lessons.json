@@ -4,6 +4,7 @@
     "name": "Finance Basics 101",
     "description": "Master the essentials like credit scores, bank accounts, and simple debt tips.",
     "points": 1000,
+    "imageUrl": "/assets/finance.jpg",
     "questions": [
       {
         "statement": "What is the purpose of a credit score?",
@@ -62,6 +63,7 @@
     "name": "Investor in Training",
     "description": "Learn the ropes of investing with concepts like diversification and mutual funds.",
     "points": 2000,
+    "imageUrl": "/assets/investor.png",
     "questions": [
       {
         "statement": "What does the term 'diversification' mean in investing?",
@@ -118,8 +120,9 @@
   {
     "id": "lv3",
     "name": "Financial Pro Moves",
-    "description": "ve deep into advanced topics like compound interest, emergency funds, and portfolio strategy.",
+    "description": "Head deep into advanced topics like compound interest, emergency funds, and portfolio strategy.",
     "points": 3000,
+    "imageUrl": "/assets/efunds.jpg",
     "questions": [
       {
         "statement": "What is the purpose of an emergency fund?",
