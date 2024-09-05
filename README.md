@@ -29,10 +29,6 @@ Connecting you with the resources and community you need to succeed financially!
 2. Install dependencies: `pnpm install`
 3. Run the server: `pnpm dev`
 
-## 💖 Credits
-
-- Icon by [hanggoro](https://flaticon.com/free-icon/halloween_16213957)
-
 ## 📜 License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
