@@ -4,6 +4,8 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
 import { deletePost } from "@/lib/posts";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
@@ -15,6 +17,8 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Tooltip,
@@ -73,8 +77,18 @@ export default function PostItem(props: { className?: string; data: PostDocument
                 <MoreVertIcon />
               </IconButton>
               <Menu anchorEl={anchorElement} open={!!anchorElement} onClose={() => setAnchorElement(undefined)}>
-                <MenuItem onClick={handleEdit}>Edit</MenuItem>
-                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                <MenuItem onClick={handleEdit}>
+                  <ListItemIcon>
+                    <EditIcon />
+                  </ListItemIcon>
+                  <ListItemText>Edit</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={handleDelete}>
+                  <ListItemIcon>
+                    <DeleteIcon />
+                  </ListItemIcon>
+                  <ListItemText>Delete</ListItemText>
+                </MenuItem>
               </Menu>
             </>
           )
