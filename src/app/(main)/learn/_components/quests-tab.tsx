@@ -2,7 +2,7 @@ import QuestItem from "@/app/(main)/learn/_components/quest-item";
 import quests from "@/content/data/quests.json";
 import { Box } from "@mui/material";
 
-export default function QuestTab() {
+export default function QuestsTab() {
   return (
     <Box className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2"}>
       {quests.map((quest) => (

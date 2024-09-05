@@ -12,8 +12,8 @@ export default function ResourceItem(props: { name: string; description: string;
         <Typography color={"textSecondary"}>{props.description}</Typography>
       </CardContent>
       <CardActions>
-        <Button LinkComponent={Link} href={props.url}>
-          Read more
+        <Button LinkComponent={Link} target={"_blank"} href={props.url}>
+          Read More
         </Button>
       </CardActions>
     </Card>

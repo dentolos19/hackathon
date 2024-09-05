@@ -1,20 +1,6 @@
 import ResourceItem from "@/app/(main)/learn/_components/resource-item";
+import resources from "@/content/data/resources.json";
 import { Box } from "@mui/material";
-
-const resources = [
-  {
-    name: "Resource #1",
-    description: "To be added.",
-    url: "https://dennise.me",
-    imageUrl: "/assets/gym.png",
-  },
-  {
-    name: "Resource #2",
-    description: "To be added.",
-    url: "https://dennise.me",
-    imageUrl: "/assets/mcd.jpg",
-  },
-];
 
 export default function ResourcesTab() {
   return (

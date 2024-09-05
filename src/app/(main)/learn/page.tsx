@@ -1,6 +1,6 @@
 "use client";
 
-import QuestTab from "@/app/(main)/learn/_components/quest-tab";
+import QuestsTab from "@/app/(main)/learn/_components/quests-tab";
 import ResourcesTab from "@/app/(main)/learn/_components/resources-tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
@@ -25,7 +25,7 @@ export default function Page() {
           </TabList>
         </Box>
         <TabPanel value={"quests"}>
-          <QuestTab />
+          <QuestsTab />
         </TabPanel>
         <TabPanel value={"resources"}>
           <ResourcesTab />
