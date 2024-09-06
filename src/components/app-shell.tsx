@@ -22,7 +22,7 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Tooltip
+  Tooltip,
 } from "@mui/material";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -92,10 +92,13 @@ export default function AppShell(props: { children: React.ReactNode }) {
                 <MenuIcon />
               </IconButton>
             </Tooltip>
-            {/* <Typography component={Link} className={"flex-1 font-bold text-2xl"} href={"/"}>
-              Pennywise
-            </Typography> */}
-            <Box component={Link} href={"/"}>
+            <Box
+              component={Link}
+              sx={{
+                display: { xs: "none", sm: "block" },
+              }}
+              href={"/"}
+            >
               <img className={"h-[40px]"} src={"/title.png"} alt={"Title"} />
             </Box>
           </Box>

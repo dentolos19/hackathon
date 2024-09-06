@@ -5,6 +5,8 @@
 
 Connecting you with the resources and community you need to succeed financially!
 
+> **Announcement**: We have won the Committee Choice Award for the Code Overflow 2024! The project's final state for submission for the hackathon is at [this tag](https://github.com/dentolos19/pennywise/releases/tag/submission).
+
 ## 🏢 Mission
 
 **Problem Statement**: Create a web-based solution to increase awareness and improve financial literacy amongst teenagers. (i.e., debt management, loaning, saving, etc.)

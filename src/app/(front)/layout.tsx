@@ -7,7 +7,6 @@ export default function Layout(props: LayoutProps) {
       <AppBar>
         <Toolbar>
           <Box>
-            {/* <Typography className={"flex-1 font-bold text-2xl"}>Pennywise</Typography> */}
             <img className={"h-[40px]"} src={"/title.png"} alt={"Title"} />
           </Box>
           <Box className={"flex-1"} />
