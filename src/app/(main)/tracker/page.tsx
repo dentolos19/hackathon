@@ -6,7 +6,7 @@ import FormStatus from "@/components/ui/form-button";
 import LoadingView from "@/components/views/loading-view";
 import MissingParametersView from "@/components/views/missing-parameters-view";
 import { updateUserPrefs } from "@/lib/auth";
-import { getExpenses, getMonthlyExpenses } from "@/lib/expenses";
+import { getExpenses } from "@/lib/expenses";
 import { ExpenseDocument } from "@/lib/integrations/appwrite/types";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -34,28 +34,35 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+function filterMonth(target: dayjs.Dayjs) {
+  const now = dayjs();
+  return target.month() === now.month() && target.year() === now.year();
+}
+
 export default function Page() {
   const auth = useAuth();
   const toast = useToast();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [expenses, setExpenses] = useState<ExpenseDocument[]>([]);
   const [monthlyExpenses, setMonthlyExpenses] = useState<number>(0);
   const [monthlyBudget, setMonthlyBudget] = useState<number>(0);
+  const [allExpenses, setAllExpenses] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (!auth.user) return;
-    const now = dayjs();
-    Promise.all([
-      getExpenses(auth.user.$id).then((res) => {
-        setExpenses(res);
-      }),
-      getMonthlyExpenses(auth.user.$id, now.year(), now.month()).then((res) => {
-        setMonthlyExpenses(res);
-        setMonthlyBudget(auth.user?.prefs.monthlyBudget || 0);
-      }),
-    ]).then(() => {
+    getExpenses(auth.user.$id).then((res) => {
+      setExpenses(res);
+      let totalExpenses = 0;
+      res.forEach((expense) => {
+        const expenseDate = dayjs(expense.date);
+        if (filterMonth(expenseDate)) {
+          totalExpenses += expense.cost * expense.quantity;
+        }
+      });
+      setMonthlyExpenses(totalExpenses);
+      setMonthlyBudget(auth.user?.prefs.monthlyBudget || 0);
       setLoading(false);
     });
   }, [auth]);
@@ -96,7 +103,12 @@ export default function Page() {
       <Stack className={"py-4 mx-auto w-[90%] md:w-[70%] lg:w-[50%]"} spacing={1}>
         <Box className={"flex gap-2"}>
           <Paper className={"p-4 flex-1"}>
-            <Typography className={"font-bold text-2xl"}>${monthlyExpenses.toFixed(2)}</Typography>
+            <Typography
+              className={"font-bold text-2xl"}
+              color={monthlyExpenses > monthlyBudget ? "error" : "textPrimary"}
+            >
+              ${monthlyExpenses.toFixed(2)}
+            </Typography>
             <Typography className={"text-sm"} color={"textSecondary"}>
               This month's expenses
             </Typography>
@@ -118,26 +130,37 @@ export default function Page() {
         {expenses.length === 0 && (
           <Typography className={"mt-16 text-center"}>Get started by creating a new expense!</Typography>
         )}
-        {expenses.map((expense) => (
-          <Card key={expense.$id}>
-            <CardActionArea LinkComponent={Link} href={`/tracker/${expense.$id}`}>
-              <CardContent className={"flex"}>
-                <Box className={"flex-1"}>
-                  <Typography className={"font-bold text-2xl"}>{expense.name}</Typography>
-                  <Typography className={"text-sm"} color={"textSecondary"}>
-                    {dayjs(expense.date).format("MMMM D, YYYY")}
-                  </Typography>
-                </Box>
-                <Box className={"flex items-center justify-center gap-1"}>
-                  <Typography className={"font-bold text-2xl"}>${expense.cost.toFixed(2)}</Typography>
-                  <Typography className={"text-sm"} color={"textSecondary"}>
-                    x{expense.quantity}
-                  </Typography>
-                </Box>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        ))}
+        {expenses
+          .filter((expense) => {
+            if (allExpenses) return true;
+            const expenseDate = dayjs(expense.date);
+            return filterMonth(expenseDate);
+          })
+          .map((expense) => (
+            <Card key={expense.$id}>
+              <CardActionArea LinkComponent={Link} href={`/tracker/${expense.$id}`}>
+                <CardContent className={"flex"}>
+                  <Box className={"flex-1"}>
+                    <Typography className={"font-bold text-2xl"}>{expense.name}</Typography>
+                    <Typography className={"text-sm"} color={"textSecondary"}>
+                      {dayjs(expense.date).format("MMMM D, YYYY")}
+                    </Typography>
+                  </Box>
+                  <Box className={"flex items-center justify-center gap-1"}>
+                    <Typography className={"font-bold text-2xl"}>${expense.cost.toFixed(2)}</Typography>
+                    <Typography className={"text-sm"} color={"textSecondary"}>
+                      x{expense.quantity}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          ))}
+        {allExpenses || (
+          <Button variant={"outlined"} onClick={() => setAllExpenses(true)}>
+            Show All Expenses
+          </Button>
+        )}
       </Stack>
       <Fab LinkComponent={Link} className={"fixed right-4 md:right-8 bottom-4 md:bottom-8"} href={"/tracker/new"}>
         <AddIcon />

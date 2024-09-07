@@ -23,21 +23,6 @@ export async function getExpenses(userId: string) {
   return res.documents.map((doc) => ExpenseDocumentSchema.parse(doc) as ExpenseDocument);
 }
 
-export async function getMonthlyExpenses(userId: string, year: number, month: number) {
-  const res = await databases.listDocuments(databaseIds.main, collectionIds.expenses, [
-    Query.equal("user", userId),
-    Query.greaterThan("date", new Date(year, month, 1).toISOString()),
-    Query.lessThan("date", new Date(year, month + 1, 0).toISOString()),
-    Query.orderDesc("date"),
-    Query.select(["cost", "quantity"]),
-  ]);
-  let result = 0;
-  res.documents.forEach((doc) => {
-    result += doc.cost * doc.quantity;
-  });
-  return result;
-}
-
 export async function updateExpense(expenseId: string, data: Partial<Omit<Expense, "user">>) {
   const res = await databases.updateDocument(databaseIds.main, collectionIds.expenses, expenseId, data);
   return ExpenseDocumentSchema.parse(res) as ExpenseDocument;
