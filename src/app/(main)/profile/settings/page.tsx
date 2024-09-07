@@ -21,7 +21,7 @@ export default function Page() {
   };
 
   const handleGemini = async () => {
-    router.push("https://aistudio.google.com/plan_information");
+    router.push("https://aistudio.google.com/app/apikey");
   };
 
   const handleSave = async (data: FormData) => {
