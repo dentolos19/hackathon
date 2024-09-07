@@ -2,8 +2,8 @@
 
 import LoadingPage from "@/app/(main)/loading";
 import NotFoundPage from "@/app/not-found";
-import { useAuth } from "@/components/providers/auth-provider";
-import { useToast } from "@/components/providers/toast-provider";
+import { useAuth } from "@/components/contexts/auth-context";
+import { useToast } from "@/components/contexts/toast-context";
 import FormStatus from "@/components/ui/form-button";
 import { deleteExpense, getExpense, updateExpense } from "@/lib/expenses";
 import { ExpenseDocument, ExpenseSchema } from "@/lib/integrations/appwrite/types";

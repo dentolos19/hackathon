@@ -1,7 +1,7 @@
 "use client";
 
-import AuthProvider from "@/components/providers/auth-provider";
-import ToastProvider from "@/components/providers/toast-provider";
+import AuthProvider from "@/components/contexts/auth-context";
+import ToastProvider from "@/components/contexts/toast-context";
 import theme from "@/theme";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";

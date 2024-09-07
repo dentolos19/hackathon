@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/contexts/auth-context";
 import MissingParametersView from "@/components/views/missing-parameters-view";
 import { Avatar, Box, Button, ButtonGroup, Paper, Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/contexts/auth-context";
 import LoadingView from "@/components/views/loading-view";
 import LoginView from "@/components/views/login-view";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";

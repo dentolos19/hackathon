@@ -1,7 +1,7 @@
 "use client";
 
-import { useAuth } from "@/components/providers/auth-provider";
-import { useToast } from "@/components/providers/toast-provider";
+import { useAuth } from "@/components/contexts/auth-context";
+import { useToast } from "@/components/contexts/toast-context";
 import FormStatus from "@/components/ui/form-button";
 import { createExpense } from "@/lib/expenses";
 import { ExpenseSchema } from "@/lib/integrations/appwrite/types";

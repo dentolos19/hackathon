@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/contexts/auth-context";
 import MessageView from "@/components/views/message-view";
 import { useChatProxy } from "@/lib/integrations/ai/main";
 import { onKeyCallback } from "@/lib/utils";

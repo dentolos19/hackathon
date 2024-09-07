@@ -1,7 +1,7 @@
 "use client";
 
-import { useAuth } from "@/components/providers/auth-provider";
-import { useToast } from "@/components/providers/toast-provider";
+import { useAuth } from "@/components/contexts/auth-context";
+import { useToast } from "@/components/contexts/toast-context";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
 import { deletePost } from "@/lib/posts";
 import DeleteIcon from "@mui/icons-material/Delete";
