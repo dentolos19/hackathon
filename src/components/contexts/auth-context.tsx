@@ -46,7 +46,7 @@ export default function AuthProvider(props: { children: React.ReactNode }) {
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
   const login = async (email: string, password: string) => {
-    return await loginUser(email, password).then((data) => {
+    await loginUser(email, password).then((data) => {
       setSession(data.session);
       setUser(data.user);
       setUserInfo(data.userInfo);
@@ -62,7 +62,7 @@ export default function AuthProvider(props: { children: React.ReactNode }) {
   };
 
   const register = async (email: string, password: string, name?: string) => {
-    return await registerUser(email, password, name).then((data) => {
+    await registerUser(email, password, name).then((data) => {
       setSession(data.session);
       setUser(data.user);
       setUserInfo(data.userInfo);

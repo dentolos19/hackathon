@@ -16,9 +16,7 @@ export async function getPost(postId: string) {
 }
 
 export async function getPosts() {
-  const res = await databases.listDocuments(databaseIds.main, collectionIds.posts, [
-    Query.orderDesc("$createdAt"),
-  ]);
+  const res = await databases.listDocuments(databaseIds.main, collectionIds.posts, [Query.orderDesc("$createdAt")]);
   console.log(res);
   return res.documents.map((doc) => PostDocumentSchema.parse(doc) as PostDocument);
 }

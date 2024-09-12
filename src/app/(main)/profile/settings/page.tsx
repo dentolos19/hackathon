@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/components/contexts/auth-context";
 import { useToast } from "@/components/contexts/toast-context";
-import FormStatus from "@/components/ui/form-button";
+import FormStatus from "@/components/ui/form-status";
 import MissingParametersView from "@/components/views/missing-parameters-view";
 import { sendEmailVertification, updateUserInfo, updateUserPrefs } from "@/lib/auth";
 import { Box, Button, ButtonGroup, Paper, TextField, Typography } from "@mui/material";

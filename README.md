@@ -5,7 +5,7 @@
 
 Connecting you with the resources and community you need to succeed financially!
 
-> **Announcement**: We have won the Committee Choice Award for the Code Overflow 2024! The project's final state for submission for the hackathon is at [this tag](https://github.com/dentolos19/pennywise/releases/tag/submission).
+> **Announcement**: We have won the Committee Choice Award for Code Overflow 2024! The project's final state for submission for the hackathon is at [this tag](https://github.com/dentolos19/pennywise/releases/tag/submission).
 
 ## 🏢 Mission
 

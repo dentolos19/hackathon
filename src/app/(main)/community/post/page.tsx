@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/components/contexts/auth-context";
 import { useToast } from "@/components/contexts/toast-context";
-import FormStatus from "@/components/ui/form-button";
+import FormStatus from "@/components/ui/form-status";
 import { createPost } from "@/lib/posts";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -38,14 +38,7 @@ export default function Page() {
         <Box component={"form"} className={"flex flex-col gap-4"} action={handlePost}>
           <Typography className={"font-bold text-2xl text-center"}>Create Post</Typography>
           <Box className={"flex flex-col gap-2"}>
-            <TextField
-              type={"text"}
-              name={"content"}
-              placeholder={"Content"}
-              hiddenLabel
-              multiline
-              required
-            />
+            <TextField type={"text"} name={"content"} placeholder={"Content"} hiddenLabel multiline required />
           </Box>
           <Box className={"flex flex-col gap-2"}>
             <FormStatus>

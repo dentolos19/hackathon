@@ -5,5 +5,5 @@ export default function LoadingView() {
     <Box className={"size-full grid place-items-center"}>
       <CircularProgress />
     </Box>
-  )
+  );
 }

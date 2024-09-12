@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/components/contexts/auth-context";
 import { useToast } from "@/components/contexts/toast-context";
-import FormStatus from "@/components/ui/form-button";
+import FormStatus from "@/components/ui/form-status";
 import { updateUserInfo } from "@/lib/auth";
 import { Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
 

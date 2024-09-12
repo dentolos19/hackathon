@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/components/contexts/auth-context";
 import { useToast } from "@/components/contexts/toast-context";
-import FormStatus from "@/components/ui/form-button";
+import FormStatus from "@/components/ui/form-status";
 import { createExpense } from "@/lib/expenses";
 import { ExpenseSchema } from "@/lib/integrations/appwrite/types";
 import { Box, Button, FormControl, InputAdornment, OutlinedInput, Paper, TextField, Typography } from "@mui/material";

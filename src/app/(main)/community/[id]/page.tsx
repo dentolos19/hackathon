@@ -4,7 +4,7 @@ import LoadingPage from "@/app/(main)/loading";
 import NotFoundPage from "@/app/not-found";
 import { useAuth } from "@/components/contexts/auth-context";
 import { useToast } from "@/components/contexts/toast-context";
-import FormStatus from "@/components/ui/form-button";
+import FormStatus from "@/components/ui/form-status";
 import { PostDocument } from "@/lib/integrations/appwrite/types";
 import { deletePost, getPost, updatePost } from "@/lib/posts";
 import { RouteProps } from "@/types";
