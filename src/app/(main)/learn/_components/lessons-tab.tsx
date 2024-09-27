@@ -1,5 +1,5 @@
 import LessonItem from "@/app/(main)/learn/_components/lesson-item";
-import lessons from "@/content/data/lessons.json";
+import lessons from "@/data/lessons.json";
 import { Box } from "@mui/material";
 
 export default function LessonsTab() {

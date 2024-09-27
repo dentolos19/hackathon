@@ -1,5 +1,5 @@
 import ShopItem from "@/app/(main)/shop/_components/shop-item";
-import items from "@/content/data/shop.json";
+import items from "@/data/shop.json";
 import { Box } from "@mui/material";
 
 export default function Page() {

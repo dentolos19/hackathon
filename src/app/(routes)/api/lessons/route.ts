@@ -1,4 +1,4 @@
-import lessons from "@/content/data/lessons.json";
+import lessons from "@/data/lessons.json";
 import { NextRequest, NextResponse } from "next/server";
 
 export function GET(req: NextRequest) {

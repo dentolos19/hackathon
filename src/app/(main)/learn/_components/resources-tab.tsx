@@ -1,5 +1,5 @@
 import ResourceItem from "@/app/(main)/learn/_components/resource-item";
-import resources from "@/content/data/resources.json";
+import resources from "@/data/resources.json";
 import { Box } from "@mui/material";
 
 export default function ResourcesTab() {
